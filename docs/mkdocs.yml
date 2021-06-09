@@ -1,0 +1,62 @@
+site_name: Docker & Kubernetes with Labs
+site_author: "kurokobo"
+
+theme:
+  name: "material"
+  language: "ja"
+  palette:
+    primary: "grey"
+    accent: "blue"
+
+markdown_extensions:
+  - admonition
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - pymdownx.tabbed
+  - pymdownx.keys
+  - toc:
+      permalink: true
+  - fontawesome_markdown
+
+extra_css:
+  - "https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+  - "css/custom.css"
+
+extra_javascript:
+  - "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+  - "js/custom.js"
+
+extra:
+  search:
+    language: "en, ja"
+  social:
+    - icon: fontawesome/brands/github-alt
+      link: "https://github.com/kurokobo"
+    - icon: fontawesome/brands/twitter
+      link: "https://twitter.com/kurokobo"
+
+nav:
+  - このラボについて: index.md
+  - 事前準備: prep-prework.md
+  - Docker ラボ:
+    - Lab 0 - 準備: prep-docker-vm.md
+    - Lab 1 - はじめに: lab-docker-intro.md
+    - Lab 2 - 使ってみる: lab-docker-run.md
+    - Lab 3 - コンテナ間通信: lab-docker-network.md
+    - Lab 4 - データの永続化: lab-docker-volume.md
+    - Lab 5 - 設定の変更: lab-docker-override.md
+    - Lab 6 - イメージのビルド: lab-docker-build.md
+    - Lab 7 - シェルの利用: lab-docker-shell.md
+    - Lab 8 - おわりに: lab-docker-outro.md
+  - Docker Compose ラボ:
+    - Lab 1 - はじめに: lab-compose-intro.md
+    - Lab 2 - 使ってみる: lab-compose-deploy.md
+    - Lab 3 - おわりに: lab-compose-outro.md
+  - Kubernetes ラボ:
+    - Lab 0 - 準備: prep-k8s-cluster.md
+    - Lab 1 - はじめに: lab-k8s-intro.md
+    - Lab 2 - 使ってみる: lab-k8s-deploy.md
+    - Lab 3 - マニフェストの利用: lab-k8s-manifest.md
+    - Lab 4 - その他の要素: lab-k8s-misc.md
+    - Lab 5 - おわりに: lab-k8s-outro.md
+  - 環境のクリーンアップ: cleanup-gcp.md
