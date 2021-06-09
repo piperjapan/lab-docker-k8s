@@ -1,0 +1,945 @@
+
+<!doctype html>
+<html lang="ja" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <meta name="author" content="kurokobo">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.1.4">
+    
+    
+      
+        <title>Lab 2 - 使ってみる - Docker & Kubernetes with Labs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.bde7dde4.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ef6f36e2.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#757575">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+      <link rel="stylesheet" href="../css/custom.css">
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="grey" data-md-color-accent="blue">
+  
+    
+    <script>function __prefix(e){return new URL("..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#docker-compose-lab" class="md-skip">
+          コンテンツにスキップ
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="ヘッダー">
+    <a href=".." title="Docker &amp; Kubernetes with Labs" class="md-header__button md-logo" aria-label="Docker & Kubernetes with Labs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Docker & Kubernetes with Labs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lab 2 - 使ってみる
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="検索" placeholder="検索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="クリア" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            検索を初期化
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="ナビゲーション" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Docker &amp; Kubernetes with Labs" class="md-nav__button md-logo" aria-label="Docker & Kubernetes with Labs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Docker & Kubernetes with Labs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        このラボについて
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../prep-prework/" class="md-nav__link">
+        事前準備
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      <label class="md-nav__link" for="__nav_3">
+        Docker ラボ
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Docker ラボ" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Docker ラボ
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../prep-docker-vm/" class="md-nav__link">
+        Lab 0 - 準備
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab-docker-intro/" class="md-nav__link">
+        Lab 1 - はじめに
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab-docker-run/" class="md-nav__link">
+        Lab 2 - 使ってみる
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab-docker-network/" class="md-nav__link">
+        Lab 3 - コンテナ間通信
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab-docker-volume/" class="md-nav__link">
+        Lab 4 - データの永続化
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab-docker-override/" class="md-nav__link">
+        Lab 5 - 設定の変更
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab-docker-build/" class="md-nav__link">
+        Lab 6 - イメージのビルド
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab-docker-shell/" class="md-nav__link">
+        Lab 7 - シェルの利用
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab-docker-outro/" class="md-nav__link">
+        Lab 8 - おわりに
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
+      
+      <label class="md-nav__link" for="__nav_4">
+        Docker Compose ラボ
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Docker Compose ラボ" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Docker Compose ラボ
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab-compose-intro/" class="md-nav__link">
+        Lab 1 - はじめに
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Lab 2 - 使ってみる
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Lab 2 - 使ってみる
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    準備
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#compose" class="md-nav__link">
+    Compose ファイル
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker-compose" class="md-nav__link">
+    Docker Compose の利用
+  </a>
+  
+    <nav class="md-nav" aria-label="Docker Compose の利用">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#docker-compose_1" class="md-nav__link">
+    Docker Compose のインストール
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    起動と確認
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    あるべき状態への収束
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    停止と削除
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab-compose-outro/" class="md-nav__link">
+        Lab 3 - おわりに
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      <label class="md-nav__link" for="__nav_5">
+        Kubernetes ラボ
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Kubernetes ラボ" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Kubernetes ラボ
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../prep-k8s-cluster/" class="md-nav__link">
+        Lab 0 - 準備
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab-k8s-intro/" class="md-nav__link">
+        Lab 1 - はじめに
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab-k8s-deploy/" class="md-nav__link">
+        Lab 2 - 使ってみる
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab-k8s-manifest/" class="md-nav__link">
+        Lab 3 - マニフェストの利用
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab-k8s-misc/" class="md-nav__link">
+        Lab 4 - その他の要素
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab-k8s-outro/" class="md-nav__link">
+        Lab 5 - おわりに
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cleanup-gcp/" class="md-nav__link">
+        環境のクリーンアップ
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    準備
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#compose" class="md-nav__link">
+    Compose ファイル
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker-compose" class="md-nav__link">
+    Docker Compose の利用
+  </a>
+  
+    <nav class="md-nav" aria-label="Docker Compose の利用">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#docker-compose_1" class="md-nav__link">
+    Docker Compose のインストール
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    起動と確認
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    あるべき状態への収束
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    停止と削除
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="docker-compose-lab">Docker Compose Lab： 使ってみる<a class="headerlink" href="#docker-compose-lab" title="Permanent link">&para;</a></h1>
+<p>このラボでは、実際に Docker Compose を使ってみます。</p>
+<p><a href="https://user-images.githubusercontent.com/2920259/99257462-687b2280-285a-11eb-8571-e7c7f12676df.png"><img alt="image" src="https://user-images.githubusercontent.com/2920259/99257462-687b2280-285a-11eb-8571-e7c7f12676df.png" /></a></p>
+<p>事前に用意したサンプルの構成ファイル（①）を元にデプロイ（②）し、アクセスを確認（③）します。</p>
+<h2 id="_1">準備<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>このラボでは、<code>lab-compose-deploy</code> ディレクトリを利用します。</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span> ~/codes/Module10/lab-compose-deploy
+</code></pre></div>
+<h2 id="compose">Compose ファイル<a class="headerlink" href="#compose" title="Permanent link">&para;</a></h2>
+<p>これまでの説明で <strong>構成ファイル</strong> と記述していたものは、Docker Compose では <strong>Compose ファイル</strong> と呼ばれ、通常はそのファイル名は <strong><code>docker-compose.yml</code></strong> です。</p>
+<p>今回は、サンプルを用意しています。カレントディレクトリの <code>docker-compose.yml</code> を確認してみましょう。</p>
+<div class="highlight"><pre><span></span><code>cat docker-compose.yml
+</code></pre></div>
+<p>次の内容です。</p>
+<div class="highlight"><pre><span></span><code><span class="nt">version</span><span class="p">:</span> <span class="s">&quot;3.8&quot;</span>
+
+<span class="nt">volumes</span><span class="p">:</span>
+  <span class="nt">redis-data</span><span class="p">:</span>
+
+<span class="nt">services</span><span class="p">:</span>
+  <span class="nt">p4app</span><span class="p">:</span>
+    <span class="nt">image</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">kurokobo/p4app:0.0.1</span>
+    <span class="nt">ports</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">80:8080</span>
+    <span class="nt">environment</span><span class="p">:</span>
+      <span class="nt">DB_HOST</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">p4db</span>
+      <span class="nt">MESSAGE</span><span class="p">:</span> <span class="s">&quot;Hello</span><span class="nv"> </span><span class="s">from</span><span class="nv"> </span><span class="s">Docker</span><span class="nv"> </span><span class="s">Compose!&quot;</span>
+
+  <span class="nt">p4db</span><span class="p">:</span>
+    <span class="nt">image</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">redis:6.0</span>
+    <span class="nt">volumes</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">redis-data:/data</span>
+</code></pre></div>
+<p>内容はとてもシンプルで、簡単には次の通りです。</p>
+<ul>
+<li><code>version</code> で Compose ファイル自体のバージョンを定義しています。バージョンによって利用できる機能が変わります。</li>
+<li><code>volumes</code> でボリュームの存在を定義しています。ここでは、<code>redis-volume</code> という名前のボリュームを定義しています。</li>
+<li><code>services</code> でコンテナの存在を定義しています。<ul>
+<li>サービス名 <code>p4app</code> と <code>p4db</code> を定義し、その下でそれぞれの具体的な構成を定義しています。</li>
+<li>利用するイメージ（<code>image</code>）、コンテナ名（<code>container_name</code>）、ポート（<code>ports</code>）、環境変数（<code>environment</code>）、マウント情報（<code>volumes</code>）などです。</li>
+</ul>
+</li>
+</ul>
+<p>ネットワークの定義は含めていませんが、Compose ファイルを使って環境を起動すれば、自動でその環境専用のネットワークが作成され接続されるため、凝った構成にしない場合は書かなくても問題ありません。また、そのネットワーク内では、サービス名で相互に名前解決ができるようになります。</p>
+<p>つまり、このすこしだけのテキストファイルに、私たちが起動したい環境のすべての情報が詰まっています。このテキストファイルは <strong>構築手順ではなく構成情報</strong> であり、これを見ればどのようなコンテナがどうつながり、どういうボリュームがどうマウントされ、どのような設定が入るのか、簡単に理解できます。ただのテキストファイルなので、例えば Git リポジトリなどバージョン管理の仕組みとも相性がよく、変更差分なども追いかけやすくなります。</p>
+<h2 id="docker-compose">Docker Compose の利用<a class="headerlink" href="#docker-compose" title="Permanent link">&para;</a></h2>
+<p>では、実際に動かしてみましょう。</p>
+<h3 id="docker-compose_1">Docker Compose のインストール<a class="headerlink" href="#docker-compose_1" title="Permanent link">&para;</a></h3>
+<p>Docker-Compose は、通常は公開されているバイナリをダウンロードして配置するだけで使えますが、今回ラボで使っている Docker Host は、Container Optimized OS で、ハードニングされているため、バイナリの実行に制限があります。このため、インストール方法が少々特殊ですが、ラボの本質ではないのでスクリプトを用意しています。</p>
+<p>次のコマンドを実行します。</p>
+<div class="highlight"><pre><span></span><code>bash install.sh
+<span class="nb">source</span> ~/.bashrc
+docker-compose version
+</code></pre></div>
+<p>最後の <code>docker-compose version</code> でエラーなくバージョンが表示されれば成功です。</p>
+<div class="highlight"><pre><span></span><code>$ bash install.sh 
+* Add an <span class="nb">alias</span> <span class="k">for</span> docker-compose to the shell configuration file ...
+* Pull container image <span class="k">for</span> docker-compose ...
+Unable to find image <span class="s1">&#39;docker/compose:1.27.4&#39;</span> locally
+<span class="m">1</span>.27.4: Pulling from docker/compose
+aad63a933944: Pull <span class="nb">complete</span> 
+8f5b9cdf0f6c: Pull <span class="nb">complete</span> 
+3ba0b1476d03: Pull <span class="nb">complete</span> 
+6e7bc5ab5405: Pull <span class="nb">complete</span> 
+Digest: sha256:4479af5256e02c3e7710051706a7abbcd39b0b31b0e306b2c18a0cbc88aee705
+Status: Downloaded newer image <span class="k">for</span> docker/compose:1.27.4
+docker-compose version <span class="m">1</span>.27.4, build <span class="m">4052419</span>
+docker-py version: <span class="m">4</span>.3.1
+CPython version: <span class="m">3</span>.7.7
+OpenSSL version: OpenSSL <span class="m">1</span>.1.1g  <span class="m">21</span> Apr <span class="m">2020</span>
+* Done
+* To use docker-compose, run <span class="s1">&#39;source ~/.bashrc&#39;</span> or simply re-login
+
+$ <span class="nb">source</span> ~/.bashrc
+
+$ docker-compose version
+docker-compose version <span class="m">1</span>.27.4, build <span class="m">4052419</span>
+docker-py version: <span class="m">4</span>.3.1
+CPython version: <span class="m">3</span>.7.7
+OpenSSL version: OpenSSL <span class="m">1</span>.1.1g  <span class="m">21</span> Apr <span class="m">2020</span>
+</code></pre></div>
+<h3 id="_2">起動と確認<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<p>Docker Compose を使って環境を起動するには、<code>docker-compose.yml</code> のあるディレクトリで、次のコマンドを実行します。</p>
+<div class="highlight"><pre><span></span><code>ls -l
+docker-compose up -d
+</code></pre></div>
+<p><code>docker</code> コマンドとよく似ていて、<code>-d</code> はデタッチドモードを意味します。</p>
+<p><a href="https://user-images.githubusercontent.com/2920259/99257462-687b2280-285a-11eb-8571-e7c7f12676df.png"><img alt="image" src="https://user-images.githubusercontent.com/2920259/99257462-687b2280-285a-11eb-8571-e7c7f12676df.png" /></a></p>
+<p><code>docker-compose</code> コマンドは、コマンドを実行したディレクトリの <code>docker-compose.yml</code> を探して利用します（異なるファイル名や別のディレクトリのファイルを使いたい場合は <code>-f</code> で指定できます）。従って今回は、事前に取得した <code>docker-compose.yml</code>（①）が使われました。</p>
+<p>コマンドの出力結果からは、Compose ファイルに従って、ネットワークやボリュームやコンテナがデプロイ（②）されたことがわかります。コンテナには、Compose ファイル通りのボリュームのマウントや環境変数、ポートの設定が適用されています。</p>
+<div class="admonition note">
+<p class="admonition-title">ネットワークの記述</p>
+<p>Compose ファイルにはネットワークの構成を記載しませんでした。繰り返しになりますが、Compose ファイルを使って環境を起動すれば、自動でその環境専用のネットワークが作成され接続されるため、凝った構成にしない場合は、書かなくても問題ありません。もちろん、意図的に記述しても大丈夫です。記述すれば、より複雑な構成も定義できます。</p>
+</div>
+<p>Docker Compose は、あくまで <strong>Docker 上に Compose ファイルに従って環境を構成する</strong> ツールのため、作られたリソースはおなじみの <code>docker</code> コマンドで確認できます。それぞれ、<code>&lt;ディレクトリ名&gt;_&lt;リソース名&gt;</code> の命名規則で作成されていることがわかります。ディレクトリ名が自動で付与されるのは、複数の Compose ファイルで複数のアプリケーションを立ち上げたときに、名前の競合を防ぐためのものです。</p>
+<div class="highlight"><pre><span></span><code>docker ps -a
+docker volume ls
+docker network ls
+</code></pre></div>
+<p><code>docker-compose</code> コマンドでも、起動状態は確認できます。</p>
+<div class="highlight"><pre><span></span><code>docker-compose ps
+</code></pre></div>
+<p>ブラウザでアプリケーションの動作を確認（③）します。カウンタをインクリメントさせてみましょう。これまで通り、動作しているはずです（ブラウザのキャッシュが残っていると、背景画像が正しくない場合があります。必要に応じて <code>[Shift] + [F5]</code> でスーパーリロードしてください）。</p>
+<p><a href="https://user-images.githubusercontent.com/2920259/98826090-a18d4e80-2478-11eb-8f72-cd7f6cc6b05c.png"><img alt="image" src="https://user-images.githubusercontent.com/2920259/98826090-a18d4e80-2478-11eb-8f72-cd7f6cc6b05c.png" /></a></p>
+<h3 id="_3">あるべき状態への収束<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p>コンテナオーケストレーションの説明の中で、次のように記述しました。</p>
+<blockquote>
+<p>構成ファイルを指定して実行すると、<strong>今の状態からの差分が自動で適用</strong> され、<strong>あるべき状態</strong> に自動で収束する</p>
+</blockquote>
+<p>つまり、人間は今の状態を気にせずに <code>docker-compose up -d</code> しさえすれば、勝手に Compose ファイルに記述した状態にまでもっていってくれるということです。</p>
+<p>これを試すため、（通常あえて行う必要はありませんが）Docker Compose で作成されたコンテナのうち一つを手動で削除し、その後、<code>docker-compose up -d</code> を再実行してみましょう。</p>
+<div class="highlight"><pre><span></span><code>docker rm -f lab-compose-deploy_p4app_1
+docker-compose up -d
+</code></pre></div>
+<p><code>docker-compose</code> コマンドの出力で、手で無理やり消した <code>p4app</code> だけが追加で起動されたことがわかります。このように、<strong>いわゆる構築手順とは異なり、現状からの差分を人間が考える必要はない</strong> 状態ができています。</p>
+<h3 id="_4">停止と削除<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p>次のコマンドで、環境を停止できます。</p>
+<div class="highlight"><pre><span></span><code>docker-compose down
+</code></pre></div>
+<p>出力から、コンテナが停止され、その後削除され、ネットワークも削除されたことがわかります。次のコマンドで、残っているリソースを確認しましょう。ボリュームだけが残っていることがわかります。</p>
+<div class="highlight"><pre><span></span><code>docker-compose ps
+docker ps -a
+docker volume ls
+docker network ls
+</code></pre></div>
+<p><code>docker</code> コマンドでは、ひとつずつていねいに停止・削除をする必要があったのに対し、Docker Compose ではひとつのコマンドできれいに掃除をしてくれます。ただし、ボリュームはデータの永続化のために利用するものなので、明示しない限り削除されることはありません。</p>
+<p>例えば、この状態で再び起動してみます。ボリュームはすでに存在するため再利用され、データが引き継がれることになります。ブラウザでアクセスすると、元のカウンタの値が維持されているはずです。</p>
+<div class="highlight"><pre><span></span><code>docker-compose up -d
+</code></pre></div>
+<p>ボリュームも含めて完全に削除したい場合は、<code>down</code> に <code>--volumes</code> を追加します。これで、完全に環境を削除できます。</p>
+<div class="highlight"><pre><span></span><code>docker-compose down --volumes
+docker-compose ps
+docker ps -a
+docker volume ls
+docker network ls
+</code></pre></div>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="フッター">
+      
+        <a href="../lab-compose-intro/" class="md-footer__link md-footer__link--prev" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                前
+              </span>
+              Lab 1 - はじめに
+            </div>
+          </div>
+        </a>
+      
+      
+        <a href="../lab-compose-outro/" class="md-footer__link md-footer__link--next" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                次
+              </span>
+              Lab 3 - おわりに
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        
+      </div>
+      
+  <div class="md-footer-social">
+    
+      
+      
+        
+        
+      
+      <a href="https://github.com/kurokobo" target="_blank" rel="noopener" title="github.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1zM480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2zm-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3zm-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1z"/></svg>
+      </a>
+    
+      
+      
+        
+        
+      
+      <a href="https://twitter.com/kurokobo" target="_blank" rel="noopener" title="twitter.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+      </a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "..", "features": [], "translations": {"clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\s\\-\u3000\u3001\u3002\uff0c\uff0e]+", "search.placeholder": "\u691c\u7d22", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044"}, "search": "../assets/javascripts/workers/search.4fa0e4ee.min.js", "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.1d3bfcf1.min.js"></script>
+      
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      
+        <script src="../js/custom.js"></script>
+      
+    
+  </body>
+</html>

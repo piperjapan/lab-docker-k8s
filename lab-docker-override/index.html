@@ -1,0 +1,857 @@
+
+<!doctype html>
+<html lang="ja" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <meta name="author" content="kurokobo">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.1.4">
+    
+    
+      
+        <title>Lab 5 - 設定の変更 - Docker & Kubernetes with Labs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.bde7dde4.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ef6f36e2.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#757575">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+      <link rel="stylesheet" href="../css/custom.css">
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="grey" data-md-color-accent="blue">
+  
+    
+    <script>function __prefix(e){return new URL("..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#docker-lab" class="md-skip">
+          コンテンツにスキップ
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="ヘッダー">
+    <a href=".." title="Docker &amp; Kubernetes with Labs" class="md-header__button md-logo" aria-label="Docker & Kubernetes with Labs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Docker & Kubernetes with Labs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lab 5 - 設定の変更
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="検索" placeholder="検索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="クリア" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            検索を初期化
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="ナビゲーション" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Docker &amp; Kubernetes with Labs" class="md-nav__button md-logo" aria-label="Docker & Kubernetes with Labs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Docker & Kubernetes with Labs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        このラボについて
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../prep-prework/" class="md-nav__link">
+        事前準備
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+      
+      <label class="md-nav__link" for="__nav_3">
+        Docker ラボ
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Docker ラボ" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Docker ラボ
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../prep-docker-vm/" class="md-nav__link">
+        Lab 0 - 準備
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab-docker-intro/" class="md-nav__link">
+        Lab 1 - はじめに
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab-docker-run/" class="md-nav__link">
+        Lab 2 - 使ってみる
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab-docker-network/" class="md-nav__link">
+        Lab 3 - コンテナ間通信
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab-docker-volume/" class="md-nav__link">
+        Lab 4 - データの永続化
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Lab 5 - 設定の変更
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Lab 5 - 設定の変更
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    準備
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    環境変数による設定の変更
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    設定ファイルの置き換えによる設定の変更
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    クリーンアップ
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    ここまででできたこと
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab-docker-build/" class="md-nav__link">
+        Lab 6 - イメージのビルド
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab-docker-shell/" class="md-nav__link">
+        Lab 7 - シェルの利用
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab-docker-outro/" class="md-nav__link">
+        Lab 8 - おわりに
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      <label class="md-nav__link" for="__nav_4">
+        Docker Compose ラボ
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Docker Compose ラボ" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Docker Compose ラボ
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab-compose-intro/" class="md-nav__link">
+        Lab 1 - はじめに
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab-compose-deploy/" class="md-nav__link">
+        Lab 2 - 使ってみる
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab-compose-outro/" class="md-nav__link">
+        Lab 3 - おわりに
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      <label class="md-nav__link" for="__nav_5">
+        Kubernetes ラボ
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Kubernetes ラボ" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Kubernetes ラボ
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../prep-k8s-cluster/" class="md-nav__link">
+        Lab 0 - 準備
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab-k8s-intro/" class="md-nav__link">
+        Lab 1 - はじめに
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab-k8s-deploy/" class="md-nav__link">
+        Lab 2 - 使ってみる
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab-k8s-manifest/" class="md-nav__link">
+        Lab 3 - マニフェストの利用
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab-k8s-misc/" class="md-nav__link">
+        Lab 4 - その他の要素
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab-k8s-outro/" class="md-nav__link">
+        Lab 5 - おわりに
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cleanup-gcp/" class="md-nav__link">
+        環境のクリーンアップ
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    準備
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    環境変数による設定の変更
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    設定ファイルの置き換えによる設定の変更
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    クリーンアップ
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    ここまででできたこと
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="docker-lab">Docker Lab： 設定の変更<a class="headerlink" href="#docker-lab" title="Permanent link">&para;</a></h1>
+<p>今回使っている <code>p4app</code> は、デフォルトでホスト名 <code>redis</code> に Redis クライアントとして接続を試行するように構成されています。しかし、現実的には、Redis データベースのホスト名を常に <code>redis</code> にできるとは限りません。</p>
+<p>一般論として、既成のコンテナイメージを <strong>完全にデフォルトのままで</strong> 使える例は、そこまで多くありません。何らかのデータベースと連携するツールでは、データベースのホスト名だけでなく、ユーザ名やパスワードを自分の環境に合わせて変える必要があるかもしれません。動作モードに A と B と C があり、デフォルトは A だけれど B に変更したいかもしれません。</p>
+<p>コンテナの起動後に設定を手で変えればよいかもしれませんが、変更は永続化されないので、コンテナを削除するたびに毎回その変更を手で行う必要があります。設定ファイルのありかを突き止めて、そこだけボリュームをマウントさせれば永続化はできるかもしれませんが、そうはいってもそもそも手作業はなるべく少なくするべきです。</p>
+<p>こうした課題に対する解決策として、ほとんどのコンテナイメージは、<strong>環境変数で設定を変更できる</strong> ように作られています。あるいは、別の手段として、<strong>コンテナ内のファイルをコンテナ外のファイルで置き換える</strong> ことで設定をコントロールできる場合もあります。</p>
+<p>ここでは、この二パタンを簡単に実践してみましょう。</p>
+<h2 id="_1">準備<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>このラボでは、<code>lab-docker-override</code> ディレクトリを利用します。</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span> ~/codes/Module10/lab-docker-override
+</code></pre></div>
+<h2 id="_2">環境変数による設定の変更<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p><a href="https://user-images.githubusercontent.com/2920259/99256361-a1b29300-2858-11eb-9265-26576af92d66.png"><img alt="image" src="https://user-images.githubusercontent.com/2920259/99256361-a1b29300-2858-11eb-9265-26576af92d66.png" /></a></p>
+<p>今回使っている <code>p4app</code> では、次の項目を環境変数で制御できるようにしています。</p>
+<table>
+<thead>
+<tr>
+<th>環境変数</th>
+<th>意味</th>
+<th>デフォルト値</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>APP_PORT</code></td>
+<td><code>p4app</code> 自体の待ち受けポート</td>
+<td><code>8080</code></td>
+</tr>
+<tr>
+<td><code>DB_HOST</code></td>
+<td>Redis データベースのホスト名</td>
+<td><code>redis</code></td>
+</tr>
+<tr>
+<td><code>DB_PORT</code></td>
+<td>Redis データベースのポート番号</td>
+<td><code>6379</code></td>
+</tr>
+<tr>
+<td><code>MESSAGE</code></td>
+<td>アプリケーションのカウンタの下に表示するメッセージ</td>
+<td><code>Here I'm having fun with Containers.</code></td>
+</tr>
+</tbody>
+</table>
+<p>ここでは、例として <code>DB_HOST</code> と <code>MESSAGE</code> を変更してみます。</p>
+<p>準備として、これまでと異なるホスト名で Redis コンテナを起動させておきましょう。</p>
+<div class="highlight"><pre><span></span><code>docker run -d --name my-awesome-redis --network p4-network redis:6.0
+</code></pre></div>
+<p>環境変数をコンテナに与えるには、<code>-e</code> を利用します。複数の環境変数を変更したい場合、単純に列挙するだけです。</p>
+<div class="highlight"><pre><span></span><code>docker run -d --name p4app -p <span class="m">80</span>:8080 --network p4-network -e <span class="nv">DB_HOST</span><span class="o">=</span>my-awesome-redis -e <span class="nv">MESSAGE</span><span class="o">=</span><span class="s2">&quot;WATASHI HA CONTENA CHOTTO WAKARU&quot;</span> kurokobo/p4app:0.0.1
+</code></pre></div>
+<p>アクセスすると、無事にカウンタが表示され、メッセージが書き換わったでしょうか？</p>
+<p><a href="https://user-images.githubusercontent.com/2920259/99149082-42754700-26cf-11eb-9eb3-599b47b0e53b.png"><img alt="image" src="https://user-images.githubusercontent.com/2920259/99149082-42754700-26cf-11eb-9eb3-599b47b0e53b.png" /></a></p>
+<p>このように、同じコンテナイメージを使いながらも、環境に合わせて設定を変更できるのが、環境変数による設定変更のメリットです。コンテナイメージごとのドキュメントには、環境変数で制御できる設定が説明されている場合がほとんどです。</p>
+<p>確認できたら、次のラボに備えて、コンテナを削除します。</p>
+<div class="highlight"><pre><span></span><code>docker rm -f p4app
+docker rm -f my-awesome-redis
+docker ps -a
+</code></pre></div>
+<h2 id="_3">設定ファイルの置き換えによる設定の変更<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p><a href="https://user-images.githubusercontent.com/2920259/99256912-7e3c1800-2859-11eb-810f-1c5c4f4f0fd0.png"><img alt="image" src="https://user-images.githubusercontent.com/2920259/99256912-7e3c1800-2859-11eb-810f-1c5c4f4f0fd0.png" /></a></p>
+<p>環境変数による設定変更に対応していない場合も、<strong>バインドマウント</strong> をうまく使うとコンテナ外から設定を注入できます。具体的には、<strong>コンテナ内の設定ファイルを任意のモノに置き換えてしまう</strong> ことで実現します。</p>
+<p>残念ながら、<code>p4app</code> のコンテナイメージには、作りが簡単すぎて設定ファイルが含まれていませんので、単純化して <strong>背景画像を差し替える</strong> ことを目論みます。ここでは例として、カレントディレクトリの <code>img/new-bg.jpg</code> に差し替えてみましょう。</p>
+<div class="highlight"><pre><span></span><code>ls -l img
+</code></pre></div>
+<p>バインドマウントの強みは、<strong>ファイル単位で置き換えられる</strong> ことです。次のコマンドで、<code>new-bg.jpg</code> でコンテナ内の背景画像ファイルを置き換えます。</p>
+<div class="highlight"><pre><span></span><code>docker run -d --name p4app -p <span class="m">80</span>:8080 --network p4-network -v <span class="nv">$PWD</span>/img/new-bg.jpg:/app/static/img/bg.jpg kurokobo/p4app:0.0.1
+</code></pre></div>
+<p>アプリケーションを開いて、<code>[Shift] + [F5]</code> でスーパーリロード（ブラウザのキャッシュを利用せずに更新）してみましょう。背景が挿し変わったでしょうか？</p>
+<p><a href="https://user-images.githubusercontent.com/2920259/99149394-18bd1f80-26d1-11eb-9ed5-b88885175dfc.png"><img alt="image" src="https://user-images.githubusercontent.com/2920259/99149394-18bd1f80-26d1-11eb-9ed5-b88885175dfc.png" /></a></p>
+<p>今回は画像で実践しましたが、実際には、例えばコンテナ内の <code>*.conf</code> ファイルなどを同様の手法で事前に用意した自前のファイルに置き換えられます。環境変数での変更をサポートしていない範囲も（強引に）書き換えられるため、非常に強力です。</p>
+<h2 id="_4">クリーンアップ<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<p>次のラボに備えて、すべてのコンテナとネットワークとボリュームを削除しましょう。</p>
+<div class="highlight"><pre><span></span><code>docker rm -f p4app
+docker network rm p4-network
+docker volume prune
+docker ps -a
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title"><code>volume prune</code></p>
+<p>停止中のものを含め、存在するどのコンテナからも使われていないボリュームをすべて削除するコマンドです。</p>
+</div>
+<h2 id="_5">ここまででできたこと<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<p>同じコンテナイメージを使う場合でも、環境に合わせて何らかの設定変更は必要で、このラボでは実際の変更方法を二種類実践しました。</p>
+<p><a href="https://user-images.githubusercontent.com/2920259/99256361-a1b29300-2858-11eb-9265-26576af92d66.png"><img alt="image" src="https://user-images.githubusercontent.com/2920259/99256361-a1b29300-2858-11eb-9265-26576af92d66.png" /></a></p>
+<p><a href="https://user-images.githubusercontent.com/2920259/99256912-7e3c1800-2859-11eb-810f-1c5c4f4f0fd0.png"><img alt="image" src="https://user-images.githubusercontent.com/2920259/99256912-7e3c1800-2859-11eb-810f-1c5c4f4f0fd0.png" /></a></p>
+<p>実際には、コンテナイメージごとのドキュメントに、具体的な変更方法（設定できる環境変数や置き換えるべきファイルのパス）が記載されている場合がほとんどです。</p>
+<p>自分でコンテナイメージをビルドしなくても、既存のコンテナイメージをうまくカスタマイズすれば、さまざまなことが実現できます。</p>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="フッター">
+      
+        <a href="../lab-docker-volume/" class="md-footer__link md-footer__link--prev" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                前
+              </span>
+              Lab 4 - データの永続化
+            </div>
+          </div>
+        </a>
+      
+      
+        <a href="../lab-docker-build/" class="md-footer__link md-footer__link--next" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                次
+              </span>
+              Lab 6 - イメージのビルド
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        
+      </div>
+      
+  <div class="md-footer-social">
+    
+      
+      
+        
+        
+      
+      <a href="https://github.com/kurokobo" target="_blank" rel="noopener" title="github.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1zM480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2zm-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3zm-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1z"/></svg>
+      </a>
+    
+      
+      
+        
+        
+      
+      <a href="https://twitter.com/kurokobo" target="_blank" rel="noopener" title="twitter.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+      </a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "..", "features": [], "translations": {"clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\s\\-\u3000\u3001\u3002\uff0c\uff0e]+", "search.placeholder": "\u691c\u7d22", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044"}, "search": "../assets/javascripts/workers/search.4fa0e4ee.min.js", "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.1d3bfcf1.min.js"></script>
+      
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      
+        <script src="../js/custom.js"></script>
+      
+    
+  </body>
+</html>

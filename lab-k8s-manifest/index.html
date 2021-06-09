@@ -1,0 +1,1019 @@
+
+<!doctype html>
+<html lang="ja" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <meta name="author" content="kurokobo">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.1.4">
+    
+    
+      
+        <title>Lab 3 - マニフェストの利用 - Docker & Kubernetes with Labs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.bde7dde4.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ef6f36e2.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#757575">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+      <link rel="stylesheet" href="../css/custom.css">
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="grey" data-md-color-accent="blue">
+  
+    
+    <script>function __prefix(e){return new URL("..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#kubernetes-lab" class="md-skip">
+          コンテンツにスキップ
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="ヘッダー">
+    <a href=".." title="Docker &amp; Kubernetes with Labs" class="md-header__button md-logo" aria-label="Docker & Kubernetes with Labs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Docker & Kubernetes with Labs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lab 3 - マニフェストの利用
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="検索" placeholder="検索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="クリア" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            検索を初期化
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="ナビゲーション" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Docker &amp; Kubernetes with Labs" class="md-nav__button md-logo" aria-label="Docker & Kubernetes with Labs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Docker & Kubernetes with Labs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        このラボについて
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../prep-prework/" class="md-nav__link">
+        事前準備
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      <label class="md-nav__link" for="__nav_3">
+        Docker ラボ
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Docker ラボ" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Docker ラボ
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../prep-docker-vm/" class="md-nav__link">
+        Lab 0 - 準備
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab-docker-intro/" class="md-nav__link">
+        Lab 1 - はじめに
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab-docker-run/" class="md-nav__link">
+        Lab 2 - 使ってみる
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab-docker-network/" class="md-nav__link">
+        Lab 3 - コンテナ間通信
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab-docker-volume/" class="md-nav__link">
+        Lab 4 - データの永続化
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab-docker-override/" class="md-nav__link">
+        Lab 5 - 設定の変更
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab-docker-build/" class="md-nav__link">
+        Lab 6 - イメージのビルド
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab-docker-shell/" class="md-nav__link">
+        Lab 7 - シェルの利用
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab-docker-outro/" class="md-nav__link">
+        Lab 8 - おわりに
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      <label class="md-nav__link" for="__nav_4">
+        Docker Compose ラボ
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Docker Compose ラボ" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Docker Compose ラボ
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab-compose-intro/" class="md-nav__link">
+        Lab 1 - はじめに
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab-compose-deploy/" class="md-nav__link">
+        Lab 2 - 使ってみる
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab-compose-outro/" class="md-nav__link">
+        Lab 3 - おわりに
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" checked>
+      
+      <label class="md-nav__link" for="__nav_5">
+        Kubernetes ラボ
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Kubernetes ラボ" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Kubernetes ラボ
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../prep-k8s-cluster/" class="md-nav__link">
+        Lab 0 - 準備
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab-k8s-intro/" class="md-nav__link">
+        Lab 1 - はじめに
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab-k8s-deploy/" class="md-nav__link">
+        Lab 2 - 使ってみる
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Lab 3 - マニフェストの利用
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Lab 3 - マニフェストの利用
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    準備
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    マニフェストを利用した移植性
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    既存のリソースからのマニフェストの作成と利用
+  </a>
+  
+    <nav class="md-nav" aria-label="既存のリソースからのマニフェストの作成と利用">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    マニフェストの作成
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    マニフェストの利用
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    きれいなマニフェストを手作りする
+  </a>
+  
+    <nav class="md-nav" aria-label="きれいなマニフェストを手作りする">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    サンプルマニフェストの確認
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    サンプルマニフェストの利用
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    ここまででできたこと
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab-k8s-misc/" class="md-nav__link">
+        Lab 4 - その他の要素
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab-k8s-outro/" class="md-nav__link">
+        Lab 5 - おわりに
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cleanup-gcp/" class="md-nav__link">
+        環境のクリーンアップ
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    準備
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    マニフェストを利用した移植性
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    既存のリソースからのマニフェストの作成と利用
+  </a>
+  
+    <nav class="md-nav" aria-label="既存のリソースからのマニフェストの作成と利用">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    マニフェストの作成
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    マニフェストの利用
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    きれいなマニフェストを手作りする
+  </a>
+  
+    <nav class="md-nav" aria-label="きれいなマニフェストを手作りする">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    サンプルマニフェストの確認
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    サンプルマニフェストの利用
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    ここまででできたこと
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="kubernetes-lab">Kubernetes Lab： 使ってみる<a class="headerlink" href="#kubernetes-lab" title="Permanent link">&para;</a></h1>
+<p>このラボでは、Kubernetes の重要な概念のひとつであるマニフェストの活用を実践します。</p>
+<h2 id="_1">準備<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>このラボでは、<code>lab-k8s-manifest</code> ディレクトリを利用します。</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span> ~/codes/Module10/lab-k8s-manifest
+</code></pre></div>
+<h2 id="_2">マニフェストを利用した移植性<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>これまで、Pod の作成や Service の構成などの操作はすべて手動で行ってきました。この手法は、ちょっとだけ試したいとき、とにかくサクッと動かしてみたいときなどにはたいへん便利ですが、実際のところ、エンタプライズ環境での一般的な手法とは言えません。</p>
+<p>Docker Compose での Compose ファイルのように、Kubernetes でもアプリケーション全体の構成を YAML 形式で記述された <strong>マニフェスト</strong> で定義して管理できます。YAML ファイルですべての構成を定義し宣言することで、テキストファイルで構成を管理できるほか、同じ構成のアプリケーションを簡単に他の環境へ移植できるなどのメリットが生まれます。</p>
+<p>ここでは、実際にマニフェストファイルを作成し、それを元に再デプロイしてみます。</p>
+<h2 id="_3">既存のリソースからのマニフェストの作成と利用<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>Kubernetes では、<code>get</code> コマンドに <code>-o yaml</code> を与えることで、その時点の構成を YAML フォーマットで出力できます。これによって得られた YAML ファイルは、そのままマニフェストファイルとして利用可能です。</p>
+<p><a href="https://user-images.githubusercontent.com/2920259/99185297-2e434f80-278c-11eb-9a2b-010350e3cac8.png"><img alt="image" src="https://user-images.githubusercontent.com/2920259/99185297-2e434f80-278c-11eb-9a2b-010350e3cac8.png" /></a></p>
+<p>ここでは、実際に現在のリソースの情報をマニフェストとして出力（①）し、環境を削除後、マニフェストによるデプロイ（②）を実勢します。</p>
+<h3 id="_4">マニフェストの作成<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p>まずは、YAML 形式での出力を確認してみましょう。</p>
+<div class="highlight"><pre><span></span><code>kubectl get pods -o yaml
+kubectl get deployment -o yaml
+kubectl get service -o yaml
+</code></pre></div>
+<p>このうち、例として Deployment の出力を YAML ファイルとして保存します。</p>
+<div class="highlight"><pre><span></span><code>kubectl get deployments -o yaml &gt; deployments.yaml
+</code></pre></div>
+<p>このファイルをエディタで開き、 <strong>19 行目付近</strong> にある <code>p4app</code> の Deployment の <code>replicas</code> を <code>2</code> から <code>3</code> に修正して、上書きします。</p>
+<div class="highlight"><pre><span></span><code>  <span class="nt">spec</span><span class="p">:</span>
+    <span class="nt">progressDeadlineSeconds</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">600</span>
+    <span class="nt">replicas</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">3</span>
+    <span class="nt">revisionHistoryLimit</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">10</span>
+    <span class="nt">selector</span><span class="p">:</span>
+      <span class="nt">matchLabels</span><span class="p">:</span>
+        <span class="nt">app</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">p4app</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">編集方法</p>
+<p>右上の <code>[ エディタを開く ]</code> アイコンから、<strong>Cloud Shell Editor</strong> を起動して、GUI でファイルを操作できます。保存は <code>[Ctrl] + [S]</code> です。</p>
+<p><a href="https://user-images.githubusercontent.com/2920259/99142917-c6620b80-269c-11eb-8120-0b25685ab159.png"><img alt="image" src="https://user-images.githubusercontent.com/2920259/99142917-c6620b80-269c-11eb-8120-0b25685ab159.png" /></a></p>
+<p>Cloud Shell Editor でなく、<code>vi</code> も利用できます。</p>
+</div>
+<h3 id="_5">マニフェストの利用<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<p>編集した YAML ファイル、すなわち Deployment のマニフェストを使ったデプロイを試すため、現在稼働している Deployment を削除します。</p>
+<div class="highlight"><pre><span></span><code>kubectl delete deployment p4app
+kubectl delete deployment redis
+kubectl get all
+</code></pre></div>
+<p>しばらく待って <code>get all</code> の結果が Service だけになったら、Deployment の削除は完了です。YAML ファイルを基にした構築が行える準備が整いました。</p>
+<div class="admonition note">
+<p class="admonition-title">存在するはずのないリソース</p>
+<p>ここでも、やはり <strong>あるべき状態</strong> の定義が変更されています。つまり、Deployment や ReplicaSet、Pod が <strong>ない状態が正しい</strong> と定義が変更されたため、それに一致させるように削除処理が動いたことになります。</p>
+</div>
+<p>次のコマンドで、YAML ファイルを基にリソースを作成できます。</p>
+<div class="highlight"><pre><span></span><code>kubectl apply -f deployments.yaml
+kubectl get all
+</code></pre></div>
+<p>レプリカを 3 つにしたため、<code>[ READY ]</code> が <code>3/3</code> になり、実際にブラウザでアクセスすると、今度は 3 つの Web サーバにロードバランスされていることが確認できます。</p>
+<h2 id="_6">きれいなマニフェストを手作りする<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<p><code>get</code> コマンドにより、YAML ファイルが作成できました。しかしこの YAML ファイルは、情報が多く、人間が管理するのは少し大変そうです。</p>
+<p>実際には、この全行が必須なわけではなく、不要な行は削除しても動作します。また、先の例では Deployment だけのマニフェストにしましたが、ひとつのマニフェストファイルに任意のリソースを列挙できるため、Service も含められます。</p>
+<p><a href="https://user-images.githubusercontent.com/2920259/99185301-37ccb780-278c-11eb-8433-918313ed0724.png"><img alt="image" src="https://user-images.githubusercontent.com/2920259/99185301-37ccb780-278c-11eb-8433-918313ed0724.png" /></a></p>
+<p>ここでは、GitHub にあらかじめ配置しておいたサンプルのマニフェスト（①）を使って、マニフェストの中身の確認と再デプロイ（②）を実践します。</p>
+<h3 id="_7">サンプルマニフェストの確認<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<p>サンプルのマニフェストは、ラボの準備のために <code>git clone</code> した中に含まれています。このマニフェストは、ここまでで作ってきた構成を極力シンプルに単一のマニフェストとして表現した例です。</p>
+<p>カレントディレクトリに <code>manifest.yml</code> があるはずです。右上の <code>[ エディタを開く ]</code> アイコンから、<strong>Cloud Shell Editor</strong> を起動して、<code>manifest.yaml</code> ファイルを開きます（中身を確認するだけなので、<code>cat</code> などでもかまいませんが、Cloud Shell Editor だと見た目がきれいです）。</p>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">v1</span>
+<span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">List</span>
+<span class="nt">items</span><span class="p">:</span>
+
+<span class="p p-Indicator">-</span> <span class="nt">apiVersion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">apps/v1</span>
+  <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Deployment</span>
+  <span class="nt">metadata</span><span class="p">:</span>
+    <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">p4app</span>
+    <span class="nt">labels</span><span class="p">:</span>
+      <span class="nt">app</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">p4app</span>
+  <span class="nt">spec</span><span class="p">:</span>
+    <span class="nt">replicas</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">3</span>
+    <span class="nt">selector</span><span class="p">:</span>
+      <span class="nt">matchLabels</span><span class="p">:</span>
+        <span class="nt">app</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">p4app</span>
+    <span class="nt">template</span><span class="p">:</span>
+      <span class="nt">metadata</span><span class="p">:</span>
+        <span class="nt">labels</span><span class="p">:</span>
+          <span class="nt">app</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">p4app</span>
+      <span class="nt">spec</span><span class="p">:</span>
+        <span class="nt">containers</span><span class="p">:</span>
+        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">p4app</span>
+          <span class="nt">image</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">kurokobo/p4app:0.0.1</span>
+          <span class="nt">ports</span><span class="p">:</span>
+          <span class="p p-Indicator">-</span> <span class="nt">containerPort</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">8080</span>
+            <span class="nt">protocol</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">TCP</span>
+        <span class="nt">restartPolicy</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Always</span>
+
+<span class="p p-Indicator">-</span> <span class="nt">apiVersion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">apps/v1</span>
+  <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Deployment</span>
+  <span class="nt">metadata</span><span class="p">:</span>
+    <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">redis</span>
+    <span class="nt">labels</span><span class="p">:</span>
+      <span class="nt">app</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">redis</span>
+  <span class="nt">spec</span><span class="p">:</span>
+    <span class="nt">replicas</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
+    <span class="nt">selector</span><span class="p">:</span>
+      <span class="nt">matchLabels</span><span class="p">:</span>
+        <span class="nt">app</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">redis</span>
+    <span class="nt">template</span><span class="p">:</span>
+      <span class="nt">metadata</span><span class="p">:</span>
+        <span class="nt">labels</span><span class="p">:</span>
+          <span class="nt">app</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">redis</span>
+      <span class="nt">spec</span><span class="p">:</span>
+        <span class="nt">containers</span><span class="p">:</span>
+        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">redis</span>
+          <span class="nt">image</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">redis:6.0</span>
+          <span class="nt">ports</span><span class="p">:</span>
+          <span class="p p-Indicator">-</span> <span class="nt">containerPort</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">6379</span>
+            <span class="nt">protocol</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">TCP</span>
+        <span class="nt">restartPolicy</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Always</span>
+
+<span class="p p-Indicator">-</span> <span class="nt">apiVersion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">v1</span>
+  <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Service</span>
+  <span class="nt">metadata</span><span class="p">:</span>
+    <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">p4app</span>
+    <span class="nt">labels</span><span class="p">:</span>
+      <span class="nt">app</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">p4app</span>
+  <span class="nt">spec</span><span class="p">:</span>
+    <span class="nt">selector</span><span class="p">:</span>
+      <span class="nt">app</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">p4app</span>
+    <span class="nt">ports</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">port</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">80</span>
+      <span class="nt">protocol</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">TCP</span>
+      <span class="nt">targetPort</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">8080</span>
+    <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">LoadBalancer</span>
+
+<span class="p p-Indicator">-</span> <span class="nt">apiVersion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">v1</span>
+  <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Service</span>
+  <span class="nt">metadata</span><span class="p">:</span>
+    <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">redis</span>
+    <span class="nt">labels</span><span class="p">:</span>
+      <span class="nt">app</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">redis</span>
+  <span class="nt">spec</span><span class="p">:</span>
+    <span class="nt">selector</span><span class="p">:</span>
+      <span class="nt">app</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">redis</span>
+    <span class="nt">ports</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">port</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">6379</span>
+      <span class="nt">protocol</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">TCP</span>
+      <span class="nt">targetPort</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">6379</span>
+    <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ClusterIP</span>
+</code></pre></div>
+<p>Deployment と Service が 2 つずつ定義されていることがわかります。行数は非常に少なく、読めばなんとなく意味がわからなくもなさそうなレベルになっています。</p>
+<p>コマンドで手作りした環境を元にマニフェストを作成することももちろんありますが、その場合でも、実際の運用に持ち込むためには、不要な行を削除したりファイルの分け方を工夫したりして、ファイルをシンプルに保つ工夫をする場合がほとんどです。</p>
+<h3 id="_8">サンプルマニフェストの利用<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<p>実際に使ってみましょう。</p>
+<p>まずは、すべての環境を削除します。サンプルマニフェストは Service も含んでいるため、Service もすべて削除します。</p>
+<div class="highlight"><pre><span></span><code>kubectl delete deployments --all
+kubectl delete services --all
+kubectl get all
+</code></pre></div>
+<p>しばらく待って、<code>get all</code> の結果が <code>service/kubernetes</code> のみになったら、削除は完了です。</p>
+<div class="admonition note">
+<p class="admonition-title">セルフヒーリング</p>
+<p><code>delete services --all</code> で問答無用ですべての Service を削除していますが、<code>service/kubernetes</code> は管理上必要な Service です。<strong>1 つあるべき</strong> と定義されているため、手で消したとしても自動的に再度作成されます。</p>
+</div>
+<p>デプロイします。</p>
+<div class="highlight"><pre><span></span><code>kubectl apply -f manifest.yaml
+kubectl get all
+</code></pre></div>
+<p><code>service/p4app</code> の <code>EXTERNAL-IP</code> が実際の IP アドレスに変わったら、ブラウザでアクセスしてみましょう。削除前と同じアプリケーションにアクセスできるはずです。</p>
+<p><a href="https://user-images.githubusercontent.com/2920259/99144246-b4399a80-26a7-11eb-846a-f600c5a51105.png"><img alt="image" src="https://user-images.githubusercontent.com/2920259/99144246-b4399a80-26a7-11eb-846a-f600c5a51105.png" /></a></p>
+<p>このように、シンプルなマニフェストファイルでも目的を達成できることがわかりました。</p>
+<p>マニフェストファイルに書くべき内容はほとんど決まっており、使いまわせる部分も非常に多いため、コマンドで手作りして <code>-o yaml</code> しなくても、慣れてくればゼロから目的のマニフェストファイルを作ることも（凝ったことをしない範囲では）難しくありません。</p>
+<h2 id="_9">ここまででできたこと<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<p>マニフェストの作成方法を理解し、実際にマニフェストを使ったリソースのデプロイを実践しました。</p>
+<p><a href="https://user-images.githubusercontent.com/2920259/99185301-37ccb780-278c-11eb-8433-918313ed0724.png"><img alt="image" src="https://user-images.githubusercontent.com/2920259/99185301-37ccb780-278c-11eb-8433-918313ed0724.png" /></a></p>
+<p>YAML ファイルはただのテキストファイルなので、Git リポジトリなどでのバージョン管理も容易です。あらかじめマニフェストファイルを作ってしまえば、Kubernetes クラスタへのデプロイを CI/CD や GitOps の概念と組み合わせて自動化も可能です。</p>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="フッター">
+      
+        <a href="../lab-k8s-deploy/" class="md-footer__link md-footer__link--prev" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                前
+              </span>
+              Lab 2 - 使ってみる
+            </div>
+          </div>
+        </a>
+      
+      
+        <a href="../lab-k8s-misc/" class="md-footer__link md-footer__link--next" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                次
+              </span>
+              Lab 4 - その他の要素
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        
+      </div>
+      
+  <div class="md-footer-social">
+    
+      
+      
+        
+        
+      
+      <a href="https://github.com/kurokobo" target="_blank" rel="noopener" title="github.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1zM480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2zm-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3zm-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1z"/></svg>
+      </a>
+    
+      
+      
+        
+        
+      
+      <a href="https://twitter.com/kurokobo" target="_blank" rel="noopener" title="twitter.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+      </a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "..", "features": [], "translations": {"clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\s\\-\u3000\u3001\u3002\uff0c\uff0e]+", "search.placeholder": "\u691c\u7d22", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044"}, "search": "../assets/javascripts/workers/search.4fa0e4ee.min.js", "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.1d3bfcf1.min.js"></script>
+      
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      
+        <script src="../js/custom.js"></script>
+      
+    
+  </body>
+</html>
