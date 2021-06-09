@@ -1,0 +1,3 @@
+python-dotenv==0.15.0
+Flask==1.1.2
+Redis==3.5.3
