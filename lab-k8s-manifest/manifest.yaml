@@ -1,0 +1,81 @@
+apiVersion: v1
+kind: List
+items:
+
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: p4app
+    labels:
+      app: p4app
+  spec:
+    replicas: 3
+    selector:
+      matchLabels:
+        app: p4app
+    template:
+      metadata:
+        labels:
+          app: p4app
+      spec:
+        containers:
+        - name: p4app
+          image: kurokobo/p4app:0.0.1
+          ports:
+          - containerPort: 8080
+            protocol: TCP
+        restartPolicy: Always
+        
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: redis
+    labels:
+      app: redis
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        app: redis
+    template:
+      metadata:
+        labels:
+          app: redis
+      spec:
+        containers:
+        - name: redis
+          image: redis:6.0
+          ports:
+          - containerPort: 6379
+            protocol: TCP
+        restartPolicy: Always
+
+- apiVersion: v1
+  kind: Service
+  metadata:
+    name: p4app
+    labels:
+      app: p4app
+  spec:
+    selector:
+      app: p4app
+    ports:
+    - port: 80
+      protocol: TCP
+      targetPort: 8080
+    type: LoadBalancer
+
+- apiVersion: v1
+  kind: Service
+  metadata:
+    name: redis
+    labels:
+      app: redis
+  spec:
+    selector:
+      app: redis
+    ports:
+    - port: 6379
+      protocol: TCP
+      targetPort: 6379
+    type: ClusterIP

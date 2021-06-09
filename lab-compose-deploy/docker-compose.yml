@@ -1,0 +1,18 @@
+version: "3.8"
+
+volumes:
+  redis-data:
+
+services:
+  p4app:
+    image: kurokobo/p4app:0.0.1
+    ports:
+      - 80:8080
+    environment:
+      DB_HOST: p4db
+      MESSAGE: "Hello from Docker Compose!"
+
+  p4db:
+    image: redis:6.0
+    volumes:
+      - redis-data:/data
