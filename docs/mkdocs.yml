@@ -1,5 +1,5 @@
 site_name: Docker & Kubernetes with Labs
-site_author: "kurokobo"
+repo_url: https://github.com/piperjapan/lab-docker-k8s/
 
 theme:
   name: "material"
@@ -29,11 +29,6 @@ extra_javascript:
 extra:
   search:
     language: "en, ja"
-  social:
-    - icon: fontawesome/brands/github-alt
-      link: "https://github.com/kurokobo"
-    - icon: fontawesome/brands/twitter
-      link: "https://twitter.com/kurokobo"
 
 nav:
   - このラボについて: index.md

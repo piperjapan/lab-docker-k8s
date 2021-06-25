@@ -28,3 +28,9 @@
     - [:fa-github: GitHub](https://github.com/kurokobo)
     - [:fa-twitter: Twitter](https://twitter.com/kurokobo)
     - [:fa-book: Blog](https://blog.kurokobo.com/)
+
+## 免責事項
+
+- 本ガイドに記載されている情報は、なるべく正確であるように心がけてはいますが、完全性や正確性について保証するものではありません。また、必ずしも最新の情報を反映できていない場合があります
+- 本ガイドに記載されている社名、各製品名、サービス名などは、各社の商標または登録商標である場合があります
+- 本ガイドで利用している画像素材の一部に [Unsplash](https://unsplash.com/license) を利用しています

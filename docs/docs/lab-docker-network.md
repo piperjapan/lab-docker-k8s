@@ -22,7 +22,7 @@ Docker は、Docker ホスト内で独自のネットワーク空間を持って
 
 ここでは、この仕組みを実際に使って、これまでつかってきたツールを Redis との二層構造で動作させます。
 
-[![image](https://user-images.githubusercontent.com/2920259/99185496-98a8bf80-278d-11eb-8cdc-dd5cda81f114.png)](https://user-images.githubusercontent.com/2920259/99185496-98a8bf80-278d-11eb-8cdc-dd5cda81f114.png)
+[![image](https://user-images.githubusercontent.com/2920259/123530654-e6c86d00-d737-11eb-9751-397f9c2a75f8.png)](https://user-images.githubusercontent.com/2920259/123530654-e6c86d00-d737-11eb-9751-397f9c2a75f8.png)
 
 まずは内部ネットワークを追加（①）し、その後、そのネットワークに接続するようにコンテナを起動（②、③）させます。最後に、動作を確認（④）します。
 
@@ -64,12 +64,15 @@ docker run -d --name redis --network p4-network redis:6.0
 
 このコマンドの意味は次の通りです。
 
-- `--network p4-network` で、このコンテナの接続先として `p4-network` を指定しています。
+- `--network p4-network` で、このコンテナの接続先として `p4-network` を指定しています
 - `--name` でコンテナ名を `redis` に指定しています。この指定と前述の `--network` オプションの効果で、`p4-network` に接続しているコンテナから、ホスト名 `redis` でこのコンテナに接続できるようになります
-- `-d` は前述した通り、デタッチドモードを指定するオプションです
-- 起動させるコンテナイメージとして `redis:6.0` を指定しています。Redis のバージョン 6.0 が動作する、Redis が公式に提供しているコンテナイメージです。これも Docker Hub でホストされています。
+- `-d` は、前述した通りデタッチドモードを指定するオプションです
+- 起動させるコンテナイメージとして `redis:6.0` を指定しています。これは、 Redis のバージョン 6.0 が動作する、Docker が公式に提供しているコンテナイメージです
 
-この前のラボで解説した通り、`redis:6.0` は未知のコンテナイメージのため、公開レジストリである Docker Hub が検索され、プルされ、起動されます。
+!!! note "イメージの指定の仕方"
+    前のラボではコンテナイメージ `ghcr.io/piperjapan/p4app:0.0.1` を指定していましたが、今回の指定は `redis:6.0` だけで、とてもシンプルです。前のラボで解説した通り、このようにレジストリホスト名とリポジトリ名を省略した場合は、デフォルト設定に従って Docker の公式コンテナレジストリである Docker Hub 上の Docker 公式イメージが参照されます。
+
+このコマンドにより、コンテナイメージ `redis:6.0` がプルされ、起動されます。
 
 起動状態を確認します。ついでに、Redis のログも `docker logs` で確認します。
 
@@ -95,7 +98,7 @@ Redis が起動できたので、Web サーバを起動します。これまで�
 次のコマンドで Web サーバを起動し、GCP の管理コンソールで `[ 外部 IP ]` 欄の IP アドレスをクリックして、動作を確認します。
 
 ```bash
-docker run -d --name p4app -p 80:8080 --network p4-network kurokobo/p4app:0.0.1
+docker run -d --name p4app -p 80:8080 --network p4-network ghcr.io/piperjapan/p4app:0.0.1
 ```
 
 [![image](https://user-images.githubusercontent.com/2920259/98825991-7c98db80-2478-11eb-8c22-c0a0e6077cf2.png)](https://user-images.githubusercontent.com/2920259/98825991-7c98db80-2478-11eb-8c22-c0a0e6077cf2.png)
@@ -121,7 +124,7 @@ CONTAINER ID        IMAGE               COMMAND             CREATED             
 
 ## ここまででできたこと
 
-[![image](https://user-images.githubusercontent.com/2920259/99185496-98a8bf80-278d-11eb-8cdc-dd5cda81f114.png)](https://user-images.githubusercontent.com/2920259/99185496-98a8bf80-278d-11eb-8cdc-dd5cda81f114.png)
+[![image](https://user-images.githubusercontent.com/2920259/123530654-e6c86d00-d737-11eb-9751-397f9c2a75f8.png)](https://user-images.githubusercontent.com/2920259/123530654-e6c86d00-d737-11eb-9751-397f9c2a75f8.png)
 
 Docker のネットワーク空間に新しいネットワークを追加（①）し、コンテナをそこに接続させる（②、③）ことで、コンテナ名による名前解決ができるようになり、IP アドレスを意識せずに複数のコンテナが協調して動作できる状態（④）を構成できました。
 

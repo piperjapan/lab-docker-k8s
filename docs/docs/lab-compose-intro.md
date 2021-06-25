@@ -29,7 +29,7 @@
 
 ```bash
 cd ~
-git clone https://github.com/piperjapan/codes.git
+git clone https://github.com/piperjapan/lab-docker-k8s.git
 ```
 
 ## コンテナのオーケストレーション
@@ -50,7 +50,7 @@ docker network create p4-network
 docker volume create redis-data
 
 docker run -d --name my-awesome-redis --network p4-network -v redis-data:/data redis:6.0
-docker run -d --name p4app -p 80:8080 --network p4-network -e DB_HOST=my-awesome-redis kurokobo/p4app:0.0.1
+docker run -d --name p4app -p 80:8080 --network p4-network -e DB_HOST=my-awesome-redis ghcr.io/piperjapan/p4app:0.0.1
 ```
 
 など、いくつものコマンドと、それらのオプションを正確に記述する必要があります。また、停止・削除でも、
@@ -77,7 +77,7 @@ docker volume rm redis-data
 こうした課題は、**コンテナオーケストレーション** の技術で解決できます。一般に、次のような特徴を持ちます。
 
 - **最終的になっていてほしい構成** を **あらかじめすべて構成ファイルに記述** する
-- 構成ファイルを指定して実行すると、**今の状態からの差分が自動で適用** され、**あるべき状態** に自動で収束する
+- 構成ファイルを指定して実行すると、**今の状態からの差分が自動で適用** され、**あるべき状態** に **自動で収束** する
 - 構成ファイルにテキスト情報ですべての構成が記述されているので、**それ自体が構成管理に利用でき**、**変更管理も容易** である
 
 ## Docker Compose

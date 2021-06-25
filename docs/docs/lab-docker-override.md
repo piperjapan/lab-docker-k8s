@@ -15,7 +15,7 @@
 このラボでは、`lab-docker-override` ディレクトリを利用します。
 
 ```bash
-cd ~/codes/Module10/lab-docker-override
+cd ~/lab-docker-k8s/lab-docker-override
 ```
 
 ## 環境変数による設定の変更
@@ -42,7 +42,7 @@ docker run -d --name my-awesome-redis --network p4-network redis:6.0
 環境変数をコンテナに与えるには、`-e` を利用します。複数の環境変数を変更したい場合、単純に列挙するだけです。
 
 ```bash
-docker run -d --name p4app -p 80:8080 --network p4-network -e DB_HOST=my-awesome-redis -e MESSAGE="WATASHI HA CONTENA CHOTTO WAKARU" kurokobo/p4app:0.0.1
+docker run -d --name p4app -p 80:8080 --network p4-network -e DB_HOST=my-awesome-redis -e MESSAGE="WATASHI HA CONTENA CHOTTO WAKARU" ghcr.io/piperjapan/p4app:0.0.1
 ```
 
 アクセスすると、無事にカウンタが表示され、メッセージが書き換わったでしょうか？
@@ -74,7 +74,7 @@ ls -l img
 バインドマウントの強みは、**ファイル単位で置き換えられる** ことです。次のコマンドで、`new-bg.jpg` でコンテナ内の背景画像ファイルを置き換えます。
 
 ```bash
-docker run -d --name p4app -p 80:8080 --network p4-network -v $PWD/img/new-bg.jpg:/app/static/img/bg.jpg kurokobo/p4app:0.0.1
+docker run -d --name p4app -p 80:8080 --network p4-network -v $PWD/img/new-bg.jpg:/app/static/img/bg.jpg ghcr.io/piperjapan/p4app:0.0.1
 ```
 
 アプリケーションを開いて、`[Shift] + [F5]` でスーパーリロード（ブラウザのキャッシュを利用せずに更新）してみましょう。背景が挿し変わったでしょうか？

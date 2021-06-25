@@ -31,5 +31,5 @@
 
 ```bash
 cd ~
-git clone https://github.com/piperjapan/codes.git
+git clone https://github.com/piperjapan/lab-docker-k8s.git
 ```

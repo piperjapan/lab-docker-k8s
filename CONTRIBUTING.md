@@ -15,6 +15,7 @@
     - [ラボガイドの修正方法](#ラボガイドの修正方法)
   - [ラボ用の資材の修正](#ラボ用の資材の修正)
   - [補足](#補足)
+    - [GitHub Actions](#github-actions)
     - [GitHub Container Registry](#github-container-registry)
     - [GitHub Pages](#github-pages)
     - [MkDocs](#mkdocs)
@@ -53,7 +54,7 @@
   - [`docker` ディレクトリ内の `VERSION` ファイル](docker/VERSION) の中身が [ワークフロー中で `cat`](.github/workflows/ghcr.yml#L19) されて利用されます
   - コンテナイメージに大幅な変更を加えた場合は、`docker/VERSION` ファイル内のタグも併せて修正してください。なお、タグを変更した場合、併せてラボガイド内でタグを記載している箇所も修正が必要です
 
-なお、本ドキュメントの執筆時点では、`lab-docker-build` ディレクトリと `docker` ディレクトリは、**`VERSION` ファイルの有無以外は完全に同じ** 状態になっています。ラボガイドの構成次第ですが、`docker` ディレクトリに変更を加えたら、同じ変更を `lab-docker-build` ディレクトリにも加えることを推奨します。
+なお、本ドキュメントの執筆時点では、`lab-docker-build` ディレクトリと `docker` ディレクトリは **完全に同じ** 状態になっています。ラボガイドの構成次第ですが、`docker` ディレクトリに変更を加えたら、同じ変更を `lab-docker-build` ディレクトリにも加えることを推奨します。
 
 ### コンテナイメージの修正方法
 
@@ -100,13 +101,30 @@
 
 ## 補足
 
+関連キーワードを補足します。
+
+なお、以下では GitHub 周辺の機能の料金プランにも言及している箇所がありますが、本組織 `piperjapan` は **無償プラン** の扱いです。GitHub では、個人のアカウントごとのプランとは **別** に、組織（Organization）単位でもプランがあり、組織下のリポジトリには **組織アカウントのプラン** の制限が適用されます。すなわち、本リポジトリは組織アカウント `piperjapan` 下であり、`piperjapan` が無償プランのため、制限は **無償プラン** のそれに従います。
+
+### GitHub Actions
+
+GitHub が提供している、GitHub 組み込みの CI/CD の仕組みです。リポジトリ内の所定のパスに所定の書式の YAML ファイルを配置することで有効化でき、リポジトリに対する様々なイベントで任意のワークフローをトリガできます。
+
+- [Features • GitHub Actions](https://github.com/features/actions)
+- [GitHub Actions Documentation - GitHub Docs](https://docs.github.com/en/actions)
+
+GitHub Actions は、[パブリックリポジトリであれば無償アカウントでも制限なく利用できます](https://github.com/features/actions)。プライベートリポジトリで利用する場合は、プランごとにワークフローの実行時間に制限があります。
+
 ### GitHub Container Registry
 
-GitHub が提供しているコンテナレジストリです。Docker Hub には [帯域制限や未使用イメージの自動削除などの制約](https://docs.docker.com/docker-hub/download-rate-limit/) がありますが、GitHub Container Registry には、現状は同等の制約はありません。GitHub のアカウントがあれば利用できます。
+GitHub が提供しているコンテナレジストリで、GitHub 上でパッケージを公開する仕組みである GitHub Packages の機能のひとつです。
 
 - [Working with the Container registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry)
 
 本リポジトリでは、コンテナレジストリへのコンテナイメージのプッシュは GitHub Actions で行っていますが、上記ドキュメントに記載のあるとおり、`docker` コマンドでも手動でプッシュできます。
+
+GitHub Container Registry の利用料は [GitHub Packages の規定に従いますが、パブリックリポジトリで利用する場合は無償](https://github.com/features/packages#pricing) であり、機能制限もありません。なお、プライベートリポジトリで利用する場合には、プランに応じて容量や通信量に制限があります。
+
+Docker の公式コンテナレジストリである Docker Hub には [帯域制限や未使用イメージの自動削除などの制約](https://docs.docker.com/docker-hub/download-rate-limit/) があります。
 
 ### GitHub Pages
 
@@ -115,6 +133,8 @@ GitHub が提供している、リポジトリの特定のブランチに含ま�
 - [About GitHub Pages](https://docs.github.com/en/pages/getting-started-with-github-pages/about-github-pages)
 
 本リポジトリでは、HTML ファイルの生成と `gh-pages` ブランチへの配置をすべて GitHub Actions で行っていますが、必ずしもそうする必要はなく、手作りした HTML ファイルを `gh-pages` ブランチに手動でプッシュしても動作します。気軽な Web ページの公開手段として非常に有用です。
+
+GitHub Pages は、[無償アカウントではパブリックリポジトリで限り無償で利用できます](https://github.com/pricing)。プライベートリポジトリで利用する場合には、有償プランが必要です。
 
 ### MkDocs
 

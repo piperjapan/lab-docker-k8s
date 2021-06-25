@@ -20,7 +20,7 @@ items:
       spec:
         containers:
         - name: p4app
-          image: kurokobo/p4app:0.0.1
+          image: ghcr.io/piperjapan/p4app:0.0.1
           ports:
           - containerPort: 8080
             protocol: TCP
