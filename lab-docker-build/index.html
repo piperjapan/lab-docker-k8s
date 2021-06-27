@@ -8,8 +8,6 @@
       
       
       
-        <meta name="author" content="kurokobo">
-      
       
       <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.1.4">
@@ -139,6 +137,19 @@
 </div>
     
     
+      <div class="md-header__source">
+        
+<a href="https://github.com/piperjapan/lab-docker-k8s/" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
   </nav>
 </header>
     
@@ -168,6 +179,19 @@
     </a>
     Docker & Kubernetes with Labs
   </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/piperjapan/lab-docker-k8s/" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
   
   <ul class="md-nav__list" data-md-scrollfix>
     
@@ -774,12 +798,16 @@
             <article class="md-content__inner md-typeset">
               
                 
+                  <a href="https://github.com/piperjapan/lab-docker-k8s/edit/master/docs/lab-docker-build.md" title="編集" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
                 
                 <h1 id="docker-lab">Docker Lab： イメージのビルド<a class="headerlink" href="#docker-lab" title="Permanent link">&para;</a></h1>
 <p>このラボでは、コンテナの <strong>開発者</strong> 側の立場で、自前のコンテナイメージを作成して使ってみます。</p>
 <h2 id="_1">準備<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <p>このラボでは、<code>lab-docker-build</code> ディレクトリを利用します。</p>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span> ~/codes/Module10/lab-docker-build
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span> ~/lab-docker-k8s/lab-docker-build
 </code></pre></div>
 <h2 id="_2">コンテナイメージを自製するメリット<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <p>コンテナの起動には、元になる <strong>コンテナイメージ</strong> が必要でした。これまでのラボでも、<code>p4app</code> や
@@ -816,7 +844,7 @@ cat Dockerfile
 <li>後続の行で、ベースイメージに対する変更を記述する</li>
 </ul>
 <p>です。雑に言えば、（あまり正確な表現ではないですが）コンテナイメージの構築手順が書いてあるようなものです。</p>
-<p>この例では、ベースイメージとして <code>python:3.9-slim</code> を指定しています。これは Python の公式コンテナイメージで、Python の動作に一般に必要とされる要素があらかじめ含まれています。このベースイメージは、前のラボの <code>docker run</code> のときにそうだったように、明示しない場合は Docker Hub から検索されます。</p>
+<p>この例では、ベースイメージとして <code>python:3.9-slim</code> を指定しています。これは Docker が提供する公式コンテナイメージのひとつで、Python の動作に一般に必要とされる要素があらかじめ含まれています。このベースイメージは、前のラボの <code>docker run</code> のときにそうだったように、レジストリホスト名やリポジトリ名を明示しない場合は Docker Hub から取得されます。</p>
 <p><code>WORKDIR</code> では、コンテナ内でのワーキングディレクトリを指定しています。このディレクトリが存在していない場合は作成されます。<code>ADD</code> では、Dockerfile のあるホスト側のカレントディレクトリ（<code>.</code>）の全ファイルを、コンテナ内の <code>/app</code> にコピーさせています。</p>
 <p>その後、<code>RUN</code> で <code>pip install</code> を実行し、必要なモジュール（<code>requirements.txt</code> に記載）をインストールさせています。<code>requirements.txt</code> は、前の <code>ADD</code> で <code>/app</code> にコピーされており、<code>WORKDIR</code> でワーキングディレクトリが <code>/app</code> に設定されているため、相対パスで指定できているわけです。</p>
 <p>その後、このコンテナイメージがデフォルトで公開するポートを <code>EXPOSE</code> で定義し、最後にコンテナイメージが起動された場合に実行されるコマンドを <code>ENTRYPOINT</code> と <code>CMD</code> で定義しています。</p>
@@ -825,7 +853,7 @@ cat Dockerfile
 <p>次のコマンドで、はじめての自分のコンテナをビルドしてみましょう。末尾の <code>.</code> を忘れないでください。この <code>.</code> で、カレントディレクトリから Dockerfile が探されてビルドが実行されます。</p>
 <div class="highlight"><pre><span></span><code>docker build -t my-first-container:0.0.1 .
 </code></pre></div>
-<p><a href="https://user-images.githubusercontent.com/2920259/99185251-ede3d180-278b-11eb-896b-c9f0b6ce10bb.png"><img alt="image" src="https://user-images.githubusercontent.com/2920259/99185251-ede3d180-278b-11eb-896b-c9f0b6ce10bb.png" /></a></p>
+<p><a href="https://user-images.githubusercontent.com/2920259/123530682-3ad35180-d738-11eb-821a-94b16c94ef95.png"><img alt="image" src="https://user-images.githubusercontent.com/2920259/123530682-3ad35180-d738-11eb-821a-94b16c94ef95.png" /></a></p>
 <p><code>-t</code> で、ビルドするコンテナイメージの名称とタグを指定します。詳しくは後述しますが、現段階では、<code>&lt;イメージ名&gt;:&lt;バージョン&gt;</code> と捉えてください。</p>
 <p>コマンドでは、カレントディレクトリの Dockerfile からのビルド（①）を指示しました。ビルドの過程では、<code>FROM</code> で指定されたベースイメージがまずプル（②）され、それを元（③）に <code>ADD</code> などでファイルや起動時のコマンドの定義などが封入（④）されます。</p>
 <p>できあがったコンテナイメージは、<code>images</code> コマンドで確認できます。</p>
@@ -877,7 +905,7 @@ docker rmi my-first-container:0.0.2
 docker images
 </code></pre></div>
 <h2 id="_7">ここまででできたこと<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
-<p><a href="https://user-images.githubusercontent.com/2920259/99185251-ede3d180-278b-11eb-896b-c9f0b6ce10bb.png"><img alt="image" src="https://user-images.githubusercontent.com/2920259/99185251-ede3d180-278b-11eb-896b-c9f0b6ce10bb.png" /></a></p>
+<p><a href="https://user-images.githubusercontent.com/2920259/123530682-3ad35180-d738-11eb-821a-94b16c94ef95.png"><img alt="image" src="https://user-images.githubusercontent.com/2920259/123530682-3ad35180-d738-11eb-821a-94b16c94ef95.png" /></a></p>
 <p>コマンドで、カレントディレクトリの Dockerfile からのビルド（①）を指示できました。Dockerfile を目的に応じて記述することで、<code>FROM</code> で指定されたベースイメージを元（②、③）に、任意のファイルや設定を封入（④）できることを学習しました。。</p>
 <p>さらに、作成したコンテナイメージをレジストリに登録すると、世界のどこからでもプルできるようになり、利用の幅が非常に広がります。</p>
 <h2 id="_8">コンテナイメージの公開（参考）<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
@@ -885,13 +913,13 @@ docker images
 <p class="admonition-title">実施不要</p>
 <p>このセクションは、参考として紹介しています。<strong>手順の実施は不要</strong> です。</p>
 </div>
-<p>できあがったイメージは、コンテナレジストリにプッシュすることで、世界中のどこからでも利用できるようになります。他人に使ってもらうだけでなく、自分がほかの Docker ホストや Kubernetes から利用できるようにもなり、非常に便利です。</p>
+<p>できあがったイメージは、コンテナレジストリにプッシュすることで、世界中のどこからでも利用できるようになります。他人に使ってもらうだけでなく、自分がほかの Docker ホストや Kubernetes からも利用できるようにもなり、非常に便利です。</p>
 <div class="admonition warning">
 <p class="admonition-title">機微情報やライセンスに注意</p>
 <p>パブリックなコンテナレジストリに登録したイメージは、ほんとうに世界中のだれからでもアクセスできるようになります。コンテナイメージに含めるファイルにだいじなパスワードなどを埋め込まないようにするほか、著作権やライセンスに注意するなど、配慮すべき点に気を付けましょう。</p>
 </div>
-<p>コンテナレジストリにもいくつものサービスがあり、おなじみの Docker Hub だけでなく、GitHub も GitHub Container Registry（<code>ghcr.io</code>）を提供しています。各パブリッククラウドも、それぞれのコンテナレジストリを提供しています。また、オンプレミス環境などでプライベートなコンテナレジストリ自体を構築できる製品も存在しています。</p>
-<p>もっとも手軽に利用できるコンテナレジストリは、おなじみの Docker Hub です。アカウントの作成が必要で、すぐには試せないと思いますので、ここでは簡単に手順だけ紹介します。</p>
+<p>コンテナレジストリにもいくつものサービスがあり、これまでのラボでも Docker 公式の Docker Hub（<code>docker.io</code>）や GitHub が提供する GitHub Container Registry（<code>ghcr.io</code>）を実際に利用していました。これ以外でも、例えば GCP や AWS、Azure などのパブリッククラウドにもそれぞれ固有のコンテナレジストリサービスがありますし、オンプレミス環境などでプライベートなコンテナレジストリを構築できる製品も存在しています。</p>
+<p>もっとも手軽に利用できるコンテナレジストリは、Docker 公式のサービスである Docker Hub です。アカウントの作成が必要で、すぐには試せないと思いますので、ここでは簡単に手順だけ紹介します。</p>
 <h3 id="_9">タグ付け<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
 <p>どのコンテナレジストリでも、まずはタグの付け方が重要です。正しくタグが付けられていないと、公開できません。</p>
 <ul>
@@ -900,12 +928,12 @@ docker images
 <li>リポジトリ名は、個人で触る範囲であれば、アカウント名と同じです</li>
 </ul>
 </li>
-<li>実例： <code>kurokobo/p4app:0.0.1</code></li>
+<li>実例： <code>username/myapp:0.0.1</code></li>
 </ul>
 </li>
 <li>Docker Hub 以外にプッシュする場合<ul>
 <li>凡例： <code>&lt;レジストリ URL&gt;/&lt;リポジトリ名&gt;/&lt;イメージ名&gt;:&lt;タグ&gt;</code></li>
-<li>実例： <code>ghcr.io/kurokobo/p4app:0.0.1</code><ul>
+<li>実例： <code>ghcr.io/username/myapp:0.0.1</code><ul>
 <li><code>ghcr.io</code> は GitHub Container Registry の例です</li>
 </ul>
 </li>
@@ -913,7 +941,7 @@ docker images
 </li>
 </ul>
 <p>ビルド時に <code>-t</code> で上記に従ってタグ付けするか、もしくは既存のイメージに以下のようにして別のタグを追加できます。</p>
-<div class="highlight"><pre><span></span><code>docker tag my-first-container:0.0.2 example/p4app:0.0.2
+<div class="highlight"><pre><span></span><code>docker tag my-first-container:0.0.2 username/myapp:0.0.2
 docker images
 </code></pre></div>
 <h3 id="_10">ログインとプッシュ<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
@@ -921,7 +949,7 @@ docker images
 <div class="highlight"><pre><span></span><code>docker login
 </code></pre></div>
 <p>この後、<code>push</code> でコンテナイメージをプッシュできます。</p>
-<div class="highlight"><pre><span></span><code>docker push example/p4app:0.0.2
+<div class="highlight"><pre><span></span><code>docker push username/myapp:0.0.2
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">他のレジストリの場合は？</p>
@@ -930,18 +958,19 @@ docker images
 </div>
 <p>プッシュが成功すると、Docker Hub のページからブラウザで確認できるようになります。</p>
 <p><a href="https://user-images.githubusercontent.com/2920259/99151681-3e055a00-26e0-11eb-82e2-4f70aa133537.png"><img alt="image" src="https://user-images.githubusercontent.com/2920259/99151681-3e055a00-26e0-11eb-82e2-4f70aa133537.png" /></a></p>
+<div class="admonition note">
+<p class="admonition-title">プライベートリポジトリ</p>
+<p>Docker Hub でも GitHub Container Registory でも、プライベートリポジトリを作成でき、それを利用すれば自分が許可したひとしか利用できないコンテナイメージも作成できます。</p>
+<p>この場合、コンテナイメージは秘匿される一方で、Pull するためにも認証が必要になるため、例えば Kubernetes 上で利用したい場合などに追加の認証情報の構成が必要になります。また、無償で利用できる範囲がプライベートリポジトリとパブリックリポジトリで異なることもあるため、各サービスのドキュメントを確認したうえで利用しましょう。</p>
+</div>
 <div class="admonition warning">
 <p class="admonition-title">Docker Hub の制限</p>
-<p>Docker Hub は、これまで特に制限なく利用でき、コンテナイメージが勝手に削除されることもありませんでしたが、2020 年の冬ごろから、</p>
+<p>Docker Hub には、2020 年の冬ごろから、無料プランに以下のような制約が設けられました。</p>
 <ul>
 <li>無料プランのアカウントが登録したイメージで六か月以上未使用のものを自動的に削除する</li>
 <li>一定時間あたりの Pull 回数に上限を設ける</li>
 </ul>
-<p>など、制限が加わっています。今のところは GitHub Container Registory には同様の制限はないため、移行の検討も必要になる可能性があります。例えば、Docker Hub 上の <code>p4app</code> も、ある日突然消えるかもしれません。</p>
-</div>
-<div class="admonition note">
-<p class="admonition-title">プライベートリポジトリ</p>
-<p>Docker Hub でも、プライベートリポジトリを作成でき、それを利用すれば自分が許可したひとしか利用できないコンテナイメージも作成できます。この場合、コンテナイメージは秘匿される一方で、Pull するためにも認証が必要になるため、例えば Kubernetes 上で利用したい場合などに追加の認証情報の構成が必要になります。</p>
+<p>一方で、GitHub Container Registory（正確には GitHub Packages）には、パブリックリポジトリであれば現時点では制限はありません（プライベートリポジトリには容量や転送量に制限があります）。</p>
 </div>
 <h2 id="_11">様々なカスタマイズ方法（参考）<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
 <div class="admonition tip">
@@ -956,7 +985,7 @@ docker images
 <li>置き換えたいファイルなど、元のイメージから変更したい点が明確である</li>
 </ul>
 <p>場合は、例えば <strong><code>p4app</code> 自体をベースイメージにしてしまい、そこからの差分だけ記述する</strong> と、同じ目的を達成できます。これはつまり、手元に <code>app.py</code> と <code>bg.jpg</code> だけあれば、Dockerfile が以下だけでも目的の状態のイメージをビルドできるということです。</p>
-<div class="highlight"><pre><span></span><code><span class="k">FROM</span> <span class="s">kurokobo/p4app:0.0.1</span>
+<div class="highlight"><pre><span></span><code><span class="k">FROM</span> <span class="s">ghcr.io/piperjapan/p4app:0.0.1</span>
 
 <span class="k">ADD</span> app.py /app
 <span class="k">ADD</span> bg.jpg /app/static/img
@@ -1022,28 +1051,6 @@ docker images
         
       </div>
       
-  <div class="md-footer-social">
-    
-      
-      
-        
-        
-      
-      <a href="https://github.com/kurokobo" target="_blank" rel="noopener" title="github.com" class="md-footer-social__link">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1zM480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2zm-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3zm-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1z"/></svg>
-      </a>
-    
-      
-      
-        
-        
-      
-      <a href="https://twitter.com/kurokobo" target="_blank" rel="noopener" title="twitter.com" class="md-footer-social__link">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
-      </a>
-    
-  </div>
-
     </div>
   </div>
 </footer>

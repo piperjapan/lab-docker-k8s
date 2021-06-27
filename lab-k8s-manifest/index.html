@@ -8,8 +8,6 @@
       
       
       
-        <meta name="author" content="kurokobo">
-      
       
       <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.1.4">
@@ -139,6 +137,19 @@
 </div>
     
     
+      <div class="md-header__source">
+        
+<a href="https://github.com/piperjapan/lab-docker-k8s/" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
   </nav>
 </header>
     
@@ -168,6 +179,19 @@
     </a>
     Docker & Kubernetes with Labs
   </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/piperjapan/lab-docker-k8s/" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
   
   <ul class="md-nav__list" data-md-scrollfix>
     
@@ -744,12 +768,16 @@
             <article class="md-content__inner md-typeset">
               
                 
+                  <a href="https://github.com/piperjapan/lab-docker-k8s/edit/master/docs/lab-k8s-manifest.md" title="編集" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
                 
                 <h1 id="kubernetes-lab">Kubernetes Lab： 使ってみる<a class="headerlink" href="#kubernetes-lab" title="Permanent link">&para;</a></h1>
 <p>このラボでは、Kubernetes の重要な概念のひとつであるマニフェストの活用を実践します。</p>
 <h2 id="_1">準備<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <p>このラボでは、<code>lab-k8s-manifest</code> ディレクトリを利用します。</p>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span> ~/codes/Module10/lab-k8s-manifest
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span> ~/lab-docker-k8s/lab-k8s-manifest
 </code></pre></div>
 <h2 id="_2">マニフェストを利用した移植性<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <p>これまで、Pod の作成や Service の構成などの操作はすべて手動で行ってきました。この手法は、ちょっとだけ試したいとき、とにかくサクッと動かしてみたいときなどにはたいへん便利ですが、実際のところ、エンタプライズ環境での一般的な手法とは言えません。</p>
@@ -757,7 +785,7 @@
 <p>ここでは、実際にマニフェストファイルを作成し、それを元に再デプロイしてみます。</p>
 <h2 id="_3">既存のリソースからのマニフェストの作成と利用<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <p>Kubernetes では、<code>get</code> コマンドに <code>-o yaml</code> を与えることで、その時点の構成を YAML フォーマットで出力できます。これによって得られた YAML ファイルは、そのままマニフェストファイルとして利用可能です。</p>
-<p><a href="https://user-images.githubusercontent.com/2920259/99185297-2e434f80-278c-11eb-9a2b-010350e3cac8.png"><img alt="image" src="https://user-images.githubusercontent.com/2920259/99185297-2e434f80-278c-11eb-9a2b-010350e3cac8.png" /></a></p>
+<p><a href="https://user-images.githubusercontent.com/2920259/123530814-b2ee4700-d739-11eb-9659-6d7642293814.png"><img alt="image" src="https://user-images.githubusercontent.com/2920259/123530814-b2ee4700-d739-11eb-9659-6d7642293814.png" /></a></p>
 <p>ここでは、実際に現在のリソースの情報をマニフェストとして出力（①）し、環境を削除後、マニフェストによるデプロイ（②）を実勢します。</p>
 <h3 id="_4">マニフェストの作成<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
 <p>まずは、YAML 形式での出力を確認してみましょう。</p>
@@ -792,7 +820,7 @@ kubectl get all
 <p>しばらく待って <code>get all</code> の結果が Service だけになったら、Deployment の削除は完了です。YAML ファイルを基にした構築が行える準備が整いました。</p>
 <div class="admonition note">
 <p class="admonition-title">存在するはずのないリソース</p>
-<p>ここでも、やはり <strong>あるべき状態</strong> の定義が変更されています。つまり、Deployment や ReplicaSet、Pod が <strong>ない状態が正しい</strong> と定義が変更されたため、それに一致させるように削除処理が動いたことになります。</p>
+<p>ここでも、やはり <strong>あるべき状態</strong> の定義が変更されています。つまり、Deployment や ReplicaSet、Pod が <strong>ない状態が正しい</strong> と定義が変更されたため、それに一致させるように削除処理が動いたということです。</p>
 </div>
 <p>次のコマンドで、YAML ファイルを基にリソースを作成できます。</p>
 <div class="highlight"><pre><span></span><code>kubectl apply -f deployments.yaml
@@ -802,7 +830,7 @@ kubectl get all
 <h2 id="_6">きれいなマニフェストを手作りする<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
 <p><code>get</code> コマンドにより、YAML ファイルが作成できました。しかしこの YAML ファイルは、情報が多く、人間が管理するのは少し大変そうです。</p>
 <p>実際には、この全行が必須なわけではなく、不要な行は削除しても動作します。また、先の例では Deployment だけのマニフェストにしましたが、ひとつのマニフェストファイルに任意のリソースを列挙できるため、Service も含められます。</p>
-<p><a href="https://user-images.githubusercontent.com/2920259/99185301-37ccb780-278c-11eb-8433-918313ed0724.png"><img alt="image" src="https://user-images.githubusercontent.com/2920259/99185301-37ccb780-278c-11eb-8433-918313ed0724.png" /></a></p>
+<p><a href="https://user-images.githubusercontent.com/2920259/123530824-cc8f8e80-d739-11eb-8928-1ab6552ab591.png"><img alt="image" src="https://user-images.githubusercontent.com/2920259/123530824-cc8f8e80-d739-11eb-8928-1ab6552ab591.png" /></a></p>
 <p>ここでは、GitHub にあらかじめ配置しておいたサンプルのマニフェスト（①）を使って、マニフェストの中身の確認と再デプロイ（②）を実践します。</p>
 <h3 id="_7">サンプルマニフェストの確認<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
 <p>サンプルのマニフェストは、ラボの準備のために <code>git clone</code> した中に含まれています。このマニフェストは、ここまでで作ってきた構成を極力シンプルに単一のマニフェストとして表現した例です。</p>
@@ -829,7 +857,7 @@ kubectl get all
       <span class="nt">spec</span><span class="p">:</span>
         <span class="nt">containers</span><span class="p">:</span>
         <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">p4app</span>
-          <span class="nt">image</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">kurokobo/p4app:0.0.1</span>
+          <span class="nt">image</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ghcr.io/piperjapan/p4app:0.0.1</span>
           <span class="nt">ports</span><span class="p">:</span>
           <span class="p p-Indicator">-</span> <span class="nt">containerPort</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">8080</span>
             <span class="nt">protocol</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">TCP</span>
@@ -913,7 +941,7 @@ kubectl get all
 <p>マニフェストファイルに書くべき内容はほとんど決まっており、使いまわせる部分も非常に多いため、コマンドで手作りして <code>-o yaml</code> しなくても、慣れてくればゼロから目的のマニフェストファイルを作ることも（凝ったことをしない範囲では）難しくありません。</p>
 <h2 id="_9">ここまででできたこと<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
 <p>マニフェストの作成方法を理解し、実際にマニフェストを使ったリソースのデプロイを実践しました。</p>
-<p><a href="https://user-images.githubusercontent.com/2920259/99185301-37ccb780-278c-11eb-8433-918313ed0724.png"><img alt="image" src="https://user-images.githubusercontent.com/2920259/99185301-37ccb780-278c-11eb-8433-918313ed0724.png" /></a></p>
+<p><a href="https://user-images.githubusercontent.com/2920259/123530824-cc8f8e80-d739-11eb-8928-1ab6552ab591.png"><img alt="image" src="https://user-images.githubusercontent.com/2920259/123530824-cc8f8e80-d739-11eb-8928-1ab6552ab591.png" /></a></p>
 <p>YAML ファイルはただのテキストファイルなので、Git リポジトリなどでのバージョン管理も容易です。あらかじめマニフェストファイルを作ってしまえば、Kubernetes クラスタへのデプロイを CI/CD や GitOps の概念と組み合わせて自動化も可能です。</p>
                 
               
@@ -975,28 +1003,6 @@ kubectl get all
         
       </div>
       
-  <div class="md-footer-social">
-    
-      
-      
-        
-        
-      
-      <a href="https://github.com/kurokobo" target="_blank" rel="noopener" title="github.com" class="md-footer-social__link">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1zM480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2zm-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3zm-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1z"/></svg>
-      </a>
-    
-      
-      
-        
-        
-      
-      <a href="https://twitter.com/kurokobo" target="_blank" rel="noopener" title="twitter.com" class="md-footer-social__link">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
-      </a>
-    
-  </div>
-
     </div>
   </div>
 </footer>

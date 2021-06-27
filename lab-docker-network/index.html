@@ -8,8 +8,6 @@
       
       
       
-        <meta name="author" content="kurokobo">
-      
       
       <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.1.4">
@@ -139,6 +137,19 @@
 </div>
     
     
+      <div class="md-header__source">
+        
+<a href="https://github.com/piperjapan/lab-docker-k8s/" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
   </nav>
 </header>
     
@@ -168,6 +179,19 @@
     </a>
     Docker & Kubernetes with Labs
   </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/piperjapan/lab-docker-k8s/" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
   
   <ul class="md-nav__list" data-md-scrollfix>
     
@@ -664,6 +688,10 @@
             <article class="md-content__inner md-typeset">
               
                 
+                  <a href="https://github.com/piperjapan/lab-docker-k8s/edit/master/docs/lab-docker-network.md" title="編集" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
                 
                 <h1 id="docker-lab">Docker Lab： コンテナ間通信<a class="headerlink" href="#docker-lab" title="Permanent link">&para;</a></h1>
 <p>ここまでで、既成のコンテナイメージをひとつだけ起動させられるようになりました。しかし、実情として、多くの Web アプリケーションは、バックエンドに何らかのデータベースを必要とします。いわゆる Web サーバの機能は先ほど動かせましたが、データベースとはどのように連携させればよいでしょうか。</p>
@@ -683,7 +711,7 @@
 <li>任意で追加したネットワークに接続したコンテナ同士は、<strong>お互いにコンテナ名で名前解決できる</strong></li>
 </ul>
 <p>ここでは、この仕組みを実際に使って、これまでつかってきたツールを Redis との二層構造で動作させます。</p>
-<p><a href="https://user-images.githubusercontent.com/2920259/99185496-98a8bf80-278d-11eb-8cdc-dd5cda81f114.png"><img alt="image" src="https://user-images.githubusercontent.com/2920259/99185496-98a8bf80-278d-11eb-8cdc-dd5cda81f114.png" /></a></p>
+<p><a href="https://user-images.githubusercontent.com/2920259/123530654-e6c86d00-d737-11eb-9751-397f9c2a75f8.png"><img alt="image" src="https://user-images.githubusercontent.com/2920259/123530654-e6c86d00-d737-11eb-9751-397f9c2a75f8.png" /></a></p>
 <p>まずは内部ネットワークを追加（①）し、その後、そのネットワークに接続するようにコンテナを起動（②、③）させます。最後に、動作を確認（④）します。</p>
 <h2 id="_1">ネットワークの追加<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <p>Docker が管理しているネットワークは、<code>docker network</code> コマンドで操作できます。一覧は <code>ls</code> サブコマンドです。</p>
@@ -711,12 +739,16 @@ cc2f27d291a9        host                host                <span class="nb">loc
 </code></pre></div>
 <p>このコマンドの意味は次の通りです。</p>
 <ul>
-<li><code>--network p4-network</code> で、このコンテナの接続先として <code>p4-network</code> を指定しています。</li>
+<li><code>--network p4-network</code> で、このコンテナの接続先として <code>p4-network</code> を指定しています</li>
 <li><code>--name</code> でコンテナ名を <code>redis</code> に指定しています。この指定と前述の <code>--network</code> オプションの効果で、<code>p4-network</code> に接続しているコンテナから、ホスト名 <code>redis</code> でこのコンテナに接続できるようになります</li>
-<li><code>-d</code> は前述した通り、デタッチドモードを指定するオプションです</li>
-<li>起動させるコンテナイメージとして <code>redis:6.0</code> を指定しています。Redis のバージョン 6.0 が動作する、Redis が公式に提供しているコンテナイメージです。これも Docker Hub でホストされています。</li>
+<li><code>-d</code> は、前述した通りデタッチドモードを指定するオプションです</li>
+<li>起動させるコンテナイメージとして <code>redis:6.0</code> を指定しています。これは、 Redis のバージョン 6.0 が動作する、Docker が公式に提供しているコンテナイメージです</li>
 </ul>
-<p>この前のラボで解説した通り、<code>redis:6.0</code> は未知のコンテナイメージのため、公開レジストリである Docker Hub が検索され、プルされ、起動されます。</p>
+<div class="admonition note">
+<p class="admonition-title">イメージの指定の仕方</p>
+<p>前のラボではコンテナイメージ <code>ghcr.io/piperjapan/p4app:0.0.1</code> を指定していましたが、今回の指定は <code>redis:6.0</code> だけで、とてもシンプルです。前のラボで解説した通り、このようにレジストリホスト名とリポジトリ名を省略した場合は、デフォルト設定に従って Docker の公式コンテナレジストリである Docker Hub 上の Docker 公式イメージが参照されます。</p>
+</div>
+<p>このコマンドにより、コンテナイメージ <code>redis:6.0</code> がプルされ、起動されます。</p>
 <p>起動状態を確認します。ついでに、Redis のログも <code>docker logs</code> で確認します。</p>
 <div class="highlight"><pre><span></span><code>$ docker ps
 CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS               NAMES
@@ -736,7 +768,7 @@ $ docker logs redis
 </div>
 <p>Redis が起動できたので、Web サーバを起動します。これまで使ってきた <code>p4app</code> は、デフォルトでホスト名 <code>redis</code> に Redis クライアントとして接続を試行するように構成されています。</p>
 <p>次のコマンドで Web サーバを起動し、GCP の管理コンソールで <code>[ 外部 IP ]</code> 欄の IP アドレスをクリックして、動作を確認します。</p>
-<div class="highlight"><pre><span></span><code>docker run -d --name p4app -p <span class="m">80</span>:8080 --network p4-network kurokobo/p4app:0.0.1
+<div class="highlight"><pre><span></span><code>docker run -d --name p4app -p <span class="m">80</span>:8080 --network p4-network ghcr.io/piperjapan/p4app:0.0.1
 </code></pre></div>
 <p><a href="https://user-images.githubusercontent.com/2920259/98825991-7c98db80-2478-11eb-8c22-c0a0e6077cf2.png"><img alt="image" src="https://user-images.githubusercontent.com/2920259/98825991-7c98db80-2478-11eb-8c22-c0a0e6077cf2.png" /></a></p>
 <p>ブラウザを更新して、カウンタがインクリメントしていく動作が確認できれば、成功です！ このカウンタの値は、Redis に保存されています。</p>
@@ -752,7 +784,7 @@ CONTAINER ID        IMAGE               COMMAND             CREATED             
 </code></pre></div>
 <p>なお、ネットワーク <code>p4-network</code> はこの後も利用するため、削除せず残しておきます。</p>
 <h2 id="_4">ここまででできたこと<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
-<p><a href="https://user-images.githubusercontent.com/2920259/99185496-98a8bf80-278d-11eb-8cdc-dd5cda81f114.png"><img alt="image" src="https://user-images.githubusercontent.com/2920259/99185496-98a8bf80-278d-11eb-8cdc-dd5cda81f114.png" /></a></p>
+<p><a href="https://user-images.githubusercontent.com/2920259/123530654-e6c86d00-d737-11eb-9751-397f9c2a75f8.png"><img alt="image" src="https://user-images.githubusercontent.com/2920259/123530654-e6c86d00-d737-11eb-9751-397f9c2a75f8.png" /></a></p>
 <p>Docker のネットワーク空間に新しいネットワークを追加（①）し、コンテナをそこに接続させる（②、③）ことで、コンテナ名による名前解決ができるようになり、IP アドレスを意識せずに複数のコンテナが協調して動作できる状態（④）を構成できました。</p>
 <p>この構成は、任意のコンテナ同士がコンテナ名で疎通できるようになるだけでなく、<strong>意図しないコンテナ同士が通信してしまう事態の抑制</strong> としても効果があります。同一の Docker ホスト内で複数のコンテナで構成されるアプリケーションを複数動作させる場合は、アプリケーションごとにネットワークを分離するような設計を考えると安全です。</p>
 <div class="admonition note">
@@ -823,28 +855,6 @@ CONTAINER ID        IMAGE               COMMAND             CREATED             
         
       </div>
       
-  <div class="md-footer-social">
-    
-      
-      
-        
-        
-      
-      <a href="https://github.com/kurokobo" target="_blank" rel="noopener" title="github.com" class="md-footer-social__link">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1zM480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2zm-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3zm-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1z"/></svg>
-      </a>
-    
-      
-      
-        
-        
-      
-      <a href="https://twitter.com/kurokobo" target="_blank" rel="noopener" title="twitter.com" class="md-footer-social__link">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
-      </a>
-    
-  </div>
-
     </div>
   </div>
 </footer>

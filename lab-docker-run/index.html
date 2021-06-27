@@ -8,8 +8,6 @@
       
       
       
-        <meta name="author" content="kurokobo">
-      
       
       <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.1.4">
@@ -139,6 +137,19 @@
 </div>
     
     
+      <div class="md-header__source">
+        
+<a href="https://github.com/piperjapan/lab-docker-k8s/" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
   </nav>
 </header>
     
@@ -168,6 +179,19 @@
     </a>
     Docker & Kubernetes with Labs
   </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/piperjapan/lab-docker-k8s/" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
   
   <ul class="md-nav__list" data-md-scrollfix>
     
@@ -744,6 +768,10 @@
             <article class="md-content__inner md-typeset">
               
                 
+                  <a href="https://github.com/piperjapan/lab-docker-k8s/edit/master/docs/lab-docker-run.md" title="編集" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
                 
                 <h1 id="docker-lab">Docker Lab： 使ってみる<a class="headerlink" href="#docker-lab" title="Permanent link">&para;</a></h1>
 <p>最近は、新しいアプリケーションがコンテナイメージで提供される形態も増えてきました。このラボでは、コンテナの <strong>ユーザ</strong> 側の立場で、まずはコンテナを動かしてみます。</p>
@@ -759,7 +787,7 @@
 <h3 id="_2">最初の起動<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
 <p>とてもおもしろそうなツールを見つけて使ってみようとしたら、提供形態が <strong>コンテナ</strong> だった、というシナリオを考えます。</p>
 <p>細かいことはさておき、とにかく動かしてみましょう。仮想マシンのターミナルで、次のコマンドを実行します。</p>
-<div class="highlight"><pre><span></span><code>docker run -p <span class="m">80</span>:8080 kurokobo/p4app:0.0.1
+<div class="highlight"><pre><span></span><code>docker run -p <span class="m">80</span>:8080 ghcr.io/piperjapan/p4app:0.0.1
 </code></pre></div>
 <p><a href="https://user-images.githubusercontent.com/2920259/98806878-2f5b4080-245d-11eb-9cfa-4a8e9b396a2d.png"><img alt="image" src="https://user-images.githubusercontent.com/2920259/98806878-2f5b4080-245d-11eb-9cfa-4a8e9b396a2d.png" /></a></p>
 <p>コマンドの実行後、なにやら処理が行われ、<code>[ Running on http://0.0.0.0:8080/ (Press CTRL+C to quit) ]</code> の表示を確認したら、GCP の管理コンソールに戻って、操作している仮想マシンの <code>[ 外部 IP ]</code> をクリックします。これは、HTTP でその IP アドレスにアクセスできるリンクです。</p>
@@ -780,30 +808,42 @@
 <h3 id="_3">起きていたこと<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
 <p>さて、コマンドを一行実行しただけでツールが起動してきたわけですが、すこしだけ、行われた処理を説明します。</p>
 <p>最初に、GCP 上に Docker の母艦となる仮想マシンを作成しました。</p>
-<p><a href="https://user-images.githubusercontent.com/2920259/99185186-92b1df00-278b-11eb-851a-7fb551df69dc.png"><img alt="image" src="https://user-images.githubusercontent.com/2920259/99185186-92b1df00-278b-11eb-851a-7fb551df69dc.png" /></a></p>
+<p><a href="https://user-images.githubusercontent.com/2920259/123530599-4114fe00-d737-11eb-8449-5422bacb7805.png"><img alt="image" src="https://user-images.githubusercontent.com/2920259/123530599-4114fe00-d737-11eb-8449-5422bacb7805.png" /></a></p>
 <p>続けて、<code>docker run</code> コマンドを実行し、あとはブラウザからアクセスしただけです。</p>
 <p>これを少しだけ細かく図示すると、次のようになります。</p>
-<p><a href="https://user-images.githubusercontent.com/2920259/99185194-a52c1880-278b-11eb-95e0-8c1f6b3c2a1a.png"><img alt="image" src="https://user-images.githubusercontent.com/2920259/99185194-a52c1880-278b-11eb-95e0-8c1f6b3c2a1a.png" /></a></p>
-<p>実行したコマンド <code>docker run -p 80:8080 kurokobo/p4app:0.0.1</code> を紐解くと、実は、次のような意味でした。</p>
+<p><a href="https://user-images.githubusercontent.com/2920259/123530613-699cf800-d737-11eb-8d7d-2f0c207b2c5b.png"><img alt="image" src="https://user-images.githubusercontent.com/2920259/123530613-699cf800-d737-11eb-8d7d-2f0c207b2c5b.png" /></a></p>
+<p>実行したコマンド <code>docker run -p 80:8080 ghcr.io/piperjapan/p4app:0.0.1</code> を紐解くと、実は、次のような意味でした。</p>
 <ul>
-<li>コンテナイメージ <code>kurokobo/p4app:0.0.1</code> を起動する（<code>docker run kurokobo/p4app:0.0.1</code>）</li>
+<li>コンテナイメージ <code>ghcr.io/piperjapan/p4app:0.0.1</code> を起動する（<code>docker run ghcr.io/piperjapan/p4app:0.0.1</code>）</li>
 <li>起動時には、コンテナの <code>8080</code> 番ポートをコンテナホストの <code>80</code> 番ポートとして公開する（<code>-p 80:8080</code>）</li>
 </ul>
 <p>この段階では、いくつかの用語を抑えておくとよいでしょう。技術的な詳細は、ラボを進めるともう少しイメージできるようになるはずです。</p>
 <h4 id="_4">コンテナレジストリ<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h4>
-<p>Docker は、コンテナイメージが指定され、それが未知のモノだった場合、インタネットで公開されている <strong>コンテナレジストリ</strong> を勝手に検索し、合致するものをダウンロードしてくれます。デフォルトでは、検索先は <a href="https://hub.docker.com/">Docker Hub</a> です。</p>
-<p>今回は、<code>kurokobo/p4app:0.0.1</code> を指定しました。今回が初回実行であり、未知のイメージのため、Docker Hub でリポジトリ <code>kurokobo</code> の <code>p4app</code> イメージが検索され、その中で <code>0.0.1</code> のタグがつけられたものが自動でダウンロードされたわけです（図中 ①）。なお、二回目以降の実行時には、初回実行時にローカルにダウンロードされたイメージが再利用されます。</p>
+<p>Docker は、指定されたコンテナイメージが未知のモノだった（ローカルに存在しない）場合は、インタネット上の <strong>コンテナレジストリ</strong> から合致するものをダウンロードして利用します。</p>
+<p>今回は、コンテナイメージとして <code>ghcr.io/piperjapan/p4app:0.0.1</code> を指定しました。これは、次のように解釈されます。</p>
+<ul>
+<li>レジストリホスト名： <code>ghcr.io</code></li>
+<li>リポジトリ名： <code>piperjapan</code></li>
+<li>イメージ名： <code>p4app</code></li>
+<li>タグ： <code>0.0.1</code></li>
+</ul>
+<p><code>ghcr.io</code> は、GitHub がホストしているコンテナレジストリである GitHub Container Registory のレジストリホスト名です。すなわち今回は、GitHub Container Registory 上の <code>piperjapan</code> リポジトリの <code>p4app</code> イメージのうち、<code>0.0.1</code> とタグ付けされたモノを使うように指示していました。指定したコンテナイメージは初回利用時にローカルにダウンロード（図中 ①）され、二回目以降の実行時にはダウンロード済みのイメージが再利用されます。</p>
 <p>なお、コンテナイメージのダウンロードは正確には <strong>プル</strong> といい、起動させずにダウンロードだけ行う <code>docker pull</code> コマンドも用意されています。</p>
+<div class="admonition note">
+<p class="admonition-title">Docker Hub</p>
+<p>Docker は、コンテナレジストリとしてデフォルトで Docker の公式サービスである <a href="https://hub.docker.com/">Docker Hub</a>（<code>docker.io</code>）を参照するように構成されているため、Docker Hub 上のコンテナイメージを利用する場合は、通常はレジストリホスト名は省略します。リポジトリ名も省略可能で、その場合は Docker Hub 上の Docker の公式イメージが参照されます。</p>
+</div>
 <h4 id="_5">コンテナイメージ<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h4>
 <p>ダウンロードしたコンテナイメージには、ツールそのものだけでなく、ツールの実行に必要な周辺環境（ランタイム、ライブラリ、モジュールなど）が丸ごと含まれています。また、そのイメージが実際にコンテナとして起動された際の起動方法などのメタデータも含まれています。</p>
 <div class="admonition warning">
 <p class="admonition-title">コンテナイメージのタグ指定</p>
-<p>この例では、<code>kurokobo</code> の <code>p4app</code> イメージの <code>0.0.1</code> タグを利用しました。タグの指定は必須ではなく、省略した場合は <code>latest</code> タグが検索されますが、今日では <code>latest</code> タグの利用は推奨されません。</p>
-<p><code>latest</code> タグは通常は <strong>その時点の最新</strong> がポイントしますが、これはつまり、<strong>実行時点によってプルされるイメージが変わる可能性がある</strong> ことを意味します。同じタグであればいつでも同じイメージがプルできる状態が望ましいことから、利用者側もコンテナイメージの作成者側もなるべく <code>latest</code> は使わず、バージョンを明示することを心がけましょう。</p>
+<p>コンテナイメージにおける <strong>タグ</strong> は、現実的にはいわゆる <strong>バージョン</strong> と近しい意味合いで使われます。今回は、<code>p4app</code> イメージの <code>0.0.1</code> タグを利用しました。</p>
+<p>なお、タグの指定は必須ではなく、省略した場合は <code>latest</code> タグが検索されますが、今日では <code>latest</code> タグの利用は推奨されません。</p>
+<p><code>latest</code> タグは通常は <strong>その時点の最新</strong> をポイントしますが、これはつまり、<strong>実行時点によってプルされるイメージが変わる可能性がある</strong> ことを意味します。同じタグであればいつでも同じ（少なくとも動作に互換性がある）イメージがプルできる状態が望ましいことから、利用者側もコンテナイメージの作成者側もなるべく <code>latest</code> は使わず、タグを明示することを心がけましょう。</p>
 </div>
 <h4 id="_6">コンテナ<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h4>
 <p>コンテナイメージを実際に起動させたモノが、コンテナです。</p>
-<p>今回は、ダウンロードしたコンテナイメージ <code>kurokobo/p4app:0.0.1</code> が、そのコンテナイメージにあらかじめ設定された起動方法（所定の Python スクリプトの実行）に従って起動されました（図中 ②）。このコンテナはデフォルトでは <code>8080</code> 番ポートで待ち受けますが、Docker ホスト内からしかアクセスできないので、コマンドの <code>-p</code> オプションで、明示的に Docker ホストの <code>80</code> 番ポートとして公開を指示していました。</p>
+<p>今回は、ダウンロードしたコンテナイメージ <code>ghcr.io/piperjapan/p4app:0.0.1</code> が、そのコンテナイメージにあらかじめ設定された起動方法（所定の Python スクリプトの実行）に従って起動されました（図中 ②）。このコンテナはデフォルトでは <code>8080</code> 番ポートで待ち受けますが、Docker ホスト内からしかアクセスできないので、コマンドの <code>-p</code> オプションで、明示的に Docker ホストの <code>80</code> 番ポートとして公開を指示していました。</p>
 <h3 id="_7">停止と削除<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
 <p>ターミナルに戻って、<code>[Ctrl] + [C]</code> を押下して、コンテナを停止させます。ここでのポイントは、次の二点です。</p>
 <ul>
@@ -817,8 +857,8 @@ CONTAINER ID        IMAGE               COMMAND             CREATED             
 <p>何も表示されませんが、正常です。<code>docker ps</code> コマンドでは、<strong>動作中の</strong> コンテナしか表示されません。先ほど起動したコンテナは、すでに <code>[Ctrl] + [C]</code> で停止しています。</p>
 <p>停止中のコンテナを含めたすべてのコンテナを確認するには、<code>docker ps -a</code> コマンドを実行します。コンテナ名（<code>NAME</code> 列）には見慣れない英単語が表示されますが、これは、コンテナ名をコンテナの起動時に指定しなかったことで、二つの英単語からランダムに自動生成されたためです。</p>
 <div class="highlight"><pre><span></span><code>$ docker ps -a
-CONTAINER ID        IMAGE                  COMMAND             CREATED             STATUS                     PORTS               NAMES
-a908d558fa48        kurokobo/p4app:0.0.1   <span class="s2">&quot;python app.py&quot;</span>     About an hour ago   Exited <span class="o">(</span><span class="m">0</span><span class="o">)</span> <span class="m">5</span> minutes ago                       reverent_kepler
+CONTAINER ID        IMAGE                            COMMAND             CREATED             STATUS                     PORTS               NAMES
+a908d558fa48        ghcr.io/piperjapan/p4app:0.0.1   <span class="s2">&quot;python app.py&quot;</span>     About an hour ago   Exited <span class="o">(</span><span class="m">0</span><span class="o">)</span> <span class="m">5</span> minutes ago                       reverent_kepler
 </code></pre></div>
 <p>停止中のコンテナは、<code>docker rm</code> コマンドで削除できます。引数で、コンテナ ID（<code>CONTAINER ID</code> 列）かコンテナ名（<code>NAME</code> 列）のどちらかを指定します。</p>
 <div class="highlight"><pre><span></span><code>$ docker rm reverent_kepler
@@ -831,29 +871,29 @@ CONTAINER ID        IMAGE               COMMAND             CREATED             
 <h3 id="_8">その他の基本的な操作<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
 <p>コンテナをフォアグラウンドで起動させてしまうと、今回の Web ベースのツールのように常時起動させておきたい場合に都合がよくありません。起動時のオプションで <code>-d</code> を指定すると、<strong>デタッチドモード</strong> になり、バックグラウンドで実行できます。</p>
 <p>実際に、デタッチドモードで起動させ、<code>docker ps</code> で起動していることを確認します。</p>
-<div class="highlight"><pre><span></span><code>$ docker run -d -p <span class="m">80</span>:8080 kurokobo/p4app:0.0.1
+<div class="highlight"><pre><span></span><code>$ docker run -d -p <span class="m">80</span>:8080 ghcr.io/piperjapan/p4app:0.0.1
 6979de0938a5178ae2930e1baf7d6e702e950cc634624bae683be9d80c89b319
 
 $ docker ps
-CONTAINER ID        IMAGE                  COMMAND             CREATED             STATUS              PORTS                  NAMES
-6979de0938a5        kurokobo/p4app:0.0.1   <span class="s2">&quot;python app.py&quot;</span>     <span class="m">3</span> seconds ago       Up <span class="m">2</span> seconds        <span class="m">0</span>.0.0.0:80-&gt;8080/tcp   epic_darwin
+CONTAINER ID        IMAGE                            COMMAND             CREATED             STATUS              PORTS                  NAMES
+6979de0938a5        ghcr.io/piperjapan/p4app:0.0.1   <span class="s2">&quot;python app.py&quot;</span>     <span class="m">3</span> seconds ago       Up <span class="m">2</span> seconds        <span class="m">0</span>.0.0.0:80-&gt;8080/tcp   epic_darwin
 </code></pre></div>
 <p>起動したコンテナは、<code>docker stop</code> で停止できます。削除時と同様に、引数でコンテナ ID かコンテナ名を指定します。</p>
 <div class="highlight"><pre><span></span><code>$ docker stop epic_darwin
 epic_darwin
 
 $ docker ps -a
-CONTAINER ID        IMAGE                  COMMAND             CREATED             STATUS                       PORTS               NAMES
-6979de0938a5        kurokobo/p4app:0.0.1   <span class="s2">&quot;python app.py&quot;</span>     <span class="m">7</span> minutes ago       Exited <span class="o">(</span><span class="m">137</span><span class="o">)</span> <span class="m">4</span> seconds ago                       epic_darwin
+CONTAINER ID        IMAGE                            COMMAND             CREATED             STATUS                       PORTS               NAMES
+6979de0938a5        ghcr.io/piperjapan/p4app:0.0.1   <span class="s2">&quot;python app.py&quot;</span>     <span class="m">7</span> minutes ago       Exited <span class="o">(</span><span class="m">137</span><span class="o">)</span> <span class="m">4</span> seconds ago                       epic_darwin
 </code></pre></div>
 <p>さて、ここで、停止したコンテナを <strong>削除しない</strong> 状態で、再び <code>docker run</code> して、<code>docker ps -a</code> してみます。</p>
-<div class="highlight"><pre><span></span><code>$ docker run -d -p <span class="m">80</span>:8080 kurokobo/p4app:0.0.1
+<div class="highlight"><pre><span></span><code>$ docker run -d -p <span class="m">80</span>:8080 ghcr.io/piperjapan/p4app:0.0.1
 77ed4288697f7122d8e94df555ec78c681a5fee5364b757b11802497865adcae
 
 $ docker ps -a
-CONTAINER ID        IMAGE                  COMMAND             CREATED             STATUS                       PORTS                  NAMES
-77ed4288697f        kurokobo/p4app:0.0.1   <span class="s2">&quot;python app.py&quot;</span>     <span class="m">4</span> seconds ago       Up <span class="m">2</span> seconds                 <span class="m">0</span>.0.0.0:80-&gt;8080/tcp   gallant_ptolemy
-6979de0938a5        kurokobo/p4app:0.0.1   <span class="s2">&quot;python app.py&quot;</span>     <span class="m">9</span> minutes ago       Exited <span class="o">(</span><span class="m">137</span><span class="o">)</span> <span class="m">2</span> minutes ago                          epic_darwin
+CONTAINER ID        IMAGE                            COMMAND             CREATED             STATUS                       PORTS                  NAMES
+77ed4288697f        ghcr.io/piperjapan/p4app:0.0.1   <span class="s2">&quot;python app.py&quot;</span>     <span class="m">4</span> seconds ago       Up <span class="m">2</span> seconds                 <span class="m">0</span>.0.0.0:80-&gt;8080/tcp   gallant_ptolemy
+6979de0938a5        ghcr.io/piperjapan/p4app:0.0.1   <span class="s2">&quot;python app.py&quot;</span>     <span class="m">9</span> minutes ago       Exited <span class="o">(</span><span class="m">137</span><span class="o">)</span> <span class="m">2</span> minutes ago                          epic_darwin
 </code></pre></div>
 <p>この結果から、<code>docker run</code> で起動させると、<strong>常に新しいコンテナが新規に作成される</strong> ことがわかります。削除をしないとコンテナが残り続けるだけでなく、<strong>起動のたびに増えていく</strong> ことになるので、掃除が必要です。</p>
 <p>少しお行儀の悪い掃除の方法として、<code>docker rm -f</code> を紹介します。このコマンドでは、起動中のコマンドも強制的に停止させて削除できます。また、引数で複数のコンテナを列挙すると、同時に削除が可能です。</p>
@@ -865,12 +905,12 @@ $ docker ps -a
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
 </code></pre></div>
 <p>また、<code>docker run</code> にオプション <code>--rm</code> を追加すると、<strong>そのコンテナの停止時に自動で削除される</strong> ようになります。</p>
-<div class="highlight"><pre><span></span><code>$ docker run --rm -d -p <span class="m">80</span>:8080 kurokobo/p4app:0.0.1
+<div class="highlight"><pre><span></span><code>$ docker run --rm -d -p <span class="m">80</span>:8080 ghcr.io/piperjapan/p4app:0.0.1
 38108887b580658641c6dd44a0091ce507ea1751af9725eb8cdf30ee839564b4
 
 $ docker ps -a
-CONTAINER ID        IMAGE                  COMMAND             CREATED             STATUS              PORTS                  NAMES
-38108887b580        kurokobo/p4app:0.0.1   <span class="s2">&quot;python app.py&quot;</span>     <span class="m">6</span> seconds ago       Up <span class="m">5</span> seconds        <span class="m">0</span>.0.0.0:80-&gt;8080/tcp   naughty_mayer
+CONTAINER ID        IMAGE                            COMMAND             CREATED             STATUS              PORTS                  NAMES
+38108887b580        ghcr.io/piperjapan/p4app:0.0.1   <span class="s2">&quot;python app.py&quot;</span>     <span class="m">6</span> seconds ago       Up <span class="m">5</span> seconds        <span class="m">0</span>.0.0.0:80-&gt;8080/tcp   naughty_mayer
 
 $ docker stop 38108887b580
 38108887b580
@@ -940,28 +980,6 @@ CONTAINER ID        IMAGE               COMMAND             CREATED             
         
       </div>
       
-  <div class="md-footer-social">
-    
-      
-      
-        
-        
-      
-      <a href="https://github.com/kurokobo" target="_blank" rel="noopener" title="github.com" class="md-footer-social__link">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1zM480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2zm-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3zm-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1z"/></svg>
-      </a>
-    
-      
-      
-        
-        
-      
-      <a href="https://twitter.com/kurokobo" target="_blank" rel="noopener" title="twitter.com" class="md-footer-social__link">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
-      </a>
-    
-  </div>
-
     </div>
   </div>
 </footer>
