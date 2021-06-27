@@ -53,7 +53,7 @@ docker run -d --name redis --network p4-network -v redis-data:/data redis:6.0
 この状態で、Web サーバのコンテナを起動し、GCP の管理コンソールで `[ 外部 IP ]` 欄の IP アドレスをクリックして、動作を確認します。
 
 ```bash
-docker run -d --name p4app -p 80:8080 --network p4-network kurokobo/p4app:0.0.1
+docker run -d --name p4app -p 80:8080 --network p4-network ghcr.io/piperjapan/p4app:0.0.1
 ```
 
 画面を何回か更新してカウンタの値を進めてから、Redis のコンテナを停止し、削除します。

@@ -44,5 +44,5 @@ Kubernetes には、Kubenetes 自身と、それが管理するコンテナが�
 
 ```bash
 cd ~
-git clone https://github.com/piperjapan/codes.git
+git clone https://github.com/piperjapan/lab-docker-k8s.git
 ```

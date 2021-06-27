@@ -7,7 +7,7 @@
 このラボでは、`lab-docker-build` ディレクトリを利用します。
 
 ```bash
-cd ~/codes/Module10/lab-docker-build
+cd ~/lab-docker-k8s/lab-docker-build
 ```
 
 ## コンテナイメージを自製するメリット
@@ -56,7 +56,7 @@ Dockerfile には、コンテナイメージそれ自体の定義が含まれて
 
 です。雑に言えば、（あまり正確な表現ではないですが）コンテナイメージの構築手順が書いてあるようなものです。
 
-この例では、ベースイメージとして `python:3.9-slim` を指定しています。これは Python の公式コンテナイメージで、Python の動作に一般に必要とされる要素があらかじめ含まれています。このベースイメージは、前のラボの `docker run` のときにそうだったように、明示しない場合は Docker Hub から検索されます。
+この例では、ベースイメージとして `python:3.9-slim` を指定しています。これは Docker が提供する公式コンテナイメージのひとつで、Python の動作に一般に必要とされる要素があらかじめ含まれています。このベースイメージは、前のラボの `docker run` のときにそうだったように、レジストリホスト名やリポジトリ名を明示しない場合は Docker Hub から取得されます。
 
 `WORKDIR` では、コンテナ内でのワーキングディレクトリを指定しています。このディレクトリが存在していない場合は作成されます。`ADD` では、Dockerfile のあるホスト側のカレントディレクトリ（`.`）の全ファイルを、コンテナ内の `/app` にコピーさせています。
 
@@ -74,7 +74,7 @@ Dockerfile には、コンテナイメージそれ自体の定義が含まれて
 docker build -t my-first-container:0.0.1 .
 ```
 
-[![image](https://user-images.githubusercontent.com/2920259/99185251-ede3d180-278b-11eb-896b-c9f0b6ce10bb.png)](https://user-images.githubusercontent.com/2920259/99185251-ede3d180-278b-11eb-896b-c9f0b6ce10bb.png)
+[![image](https://user-images.githubusercontent.com/2920259/123530682-3ad35180-d738-11eb-821a-94b16c94ef95.png)](https://user-images.githubusercontent.com/2920259/123530682-3ad35180-d738-11eb-821a-94b16c94ef95.png)
 
 `-t` で、ビルドするコンテナイメージの名称とタグを指定します。詳しくは後述しますが、現段階では、`<イメージ名>:<バージョン>` と捉えてください。
 
@@ -164,7 +164,7 @@ docker images
 
 ## ここまででできたこと
 
-[![image](https://user-images.githubusercontent.com/2920259/99185251-ede3d180-278b-11eb-896b-c9f0b6ce10bb.png)](https://user-images.githubusercontent.com/2920259/99185251-ede3d180-278b-11eb-896b-c9f0b6ce10bb.png)
+[![image](https://user-images.githubusercontent.com/2920259/123530682-3ad35180-d738-11eb-821a-94b16c94ef95.png)](https://user-images.githubusercontent.com/2920259/123530682-3ad35180-d738-11eb-821a-94b16c94ef95.png)
 
 コマンドで、カレントディレクトリの Dockerfile からのビルド（①）を指示できました。Dockerfile を目的に応じて記述することで、`FROM` で指定されたベースイメージを元（②、③）に、任意のファイルや設定を封入（④）できることを学習しました。。
 
@@ -175,14 +175,14 @@ docker images
 !!! tip "実施不要"
     このセクションは、参考として紹介しています。**手順の実施は不要** です。
 
-できあがったイメージは、コンテナレジストリにプッシュすることで、世界中のどこからでも利用できるようになります。他人に使ってもらうだけでなく、自分がほかの Docker ホストや Kubernetes から利用できるようにもなり、非常に便利です。
+できあがったイメージは、コンテナレジストリにプッシュすることで、世界中のどこからでも利用できるようになります。他人に使ってもらうだけでなく、自分がほかの Docker ホストや Kubernetes からも利用できるようにもなり、非常に便利です。
 
 !!! warning "機微情報やライセンスに注意"
     パブリックなコンテナレジストリに登録したイメージは、ほんとうに世界中のだれからでもアクセスできるようになります。コンテナイメージに含めるファイルにだいじなパスワードなどを埋め込まないようにするほか、著作権やライセンスに注意するなど、配慮すべき点に気を付けましょう。
 
-コンテナレジストリにもいくつものサービスがあり、おなじみの Docker Hub だけでなく、GitHub も GitHub Container Registry（`ghcr.io`）を提供しています。各パブリッククラウドも、それぞれのコンテナレジストリを提供しています。また、オンプレミス環境などでプライベートなコンテナレジストリ自体を構築できる製品も存在しています。
+コンテナレジストリにもいくつものサービスがあり、これまでのラボでも Docker 公式の Docker Hub（`docker.io`）や GitHub が提供する GitHub Container Registry（`ghcr.io`）を実際に利用していました。これ以外でも、例えば GCP や AWS、Azure などのパブリッククラウドにもそれぞれ固有のコンテナレジストリサービスがありますし、オンプレミス環境などでプライベートなコンテナレジストリを構築できる製品も存在しています。
 
-もっとも手軽に利用できるコンテナレジストリは、おなじみの Docker Hub です。アカウントの作成が必要で、すぐには試せないと思いますので、ここでは簡単に手順だけ紹介します。
+もっとも手軽に利用できるコンテナレジストリは、Docker 公式のサービスである Docker Hub です。アカウントの作成が必要で、すぐには試せないと思いますので、ここでは簡単に手順だけ紹介します。
 
 ### タグ付け
 
@@ -191,16 +191,16 @@ docker images
 - Docker Hub にプッシュする場合
     - 凡例： `<リポジトリ名>/<イメージ名>:<タグ>`
         - リポジトリ名は、個人で触る範囲であれば、アカウント名と同じです
-    - 実例： `kurokobo/p4app:0.0.1`
+    - 実例： `username/myapp:0.0.1`
 - Docker Hub 以外にプッシュする場合
     - 凡例： `<レジストリ URL>/<リポジトリ名>/<イメージ名>:<タグ>`
-    - 実例： `ghcr.io/kurokobo/p4app:0.0.1`
+    - 実例： `ghcr.io/username/myapp:0.0.1`
         - `ghcr.io` は GitHub Container Registry の例です
 
 ビルド時に `-t` で上記に従ってタグ付けするか、もしくは既存のイメージに以下のようにして別のタグを追加できます。
 
 ```bash
-docker tag my-first-container:0.0.2 example/p4app:0.0.2
+docker tag my-first-container:0.0.2 username/myapp:0.0.2
 docker images
 ```
 
@@ -215,7 +215,7 @@ docker login
 この後、`push` でコンテナイメージをプッシュできます。
 
 ```bash
-docker push example/p4app:0.0.2
+docker push username/myapp:0.0.2
 ```
 
 !!! note "他のレジストリの場合は？"
@@ -227,16 +227,18 @@ docker push example/p4app:0.0.2
 
 [![image](https://user-images.githubusercontent.com/2920259/99151681-3e055a00-26e0-11eb-82e2-4f70aa133537.png)](https://user-images.githubusercontent.com/2920259/99151681-3e055a00-26e0-11eb-82e2-4f70aa133537.png)
 
+!!! note "プライベートリポジトリ"
+    Docker Hub でも GitHub Container Registory でも、プライベートリポジトリを作成でき、それを利用すれば自分が許可したひとしか利用できないコンテナイメージも作成できます。
+
+    この場合、コンテナイメージは秘匿される一方で、Pull するためにも認証が必要になるため、例えば Kubernetes 上で利用したい場合などに追加の認証情報の構成が必要になります。また、無償で利用できる範囲がプライベートリポジトリとパブリックリポジトリで異なることもあるため、各サービスのドキュメントを確認したうえで利用しましょう。
+
 !!! warning "Docker Hub の制限"
-    Docker Hub は、これまで特に制限なく利用でき、コンテナイメージが勝手に削除されることもありませんでしたが、2020 年の冬ごろから、
+    Docker Hub には、2020 年の冬ごろから、無料プランに以下のような制約が設けられました。
 
     - 無料プランのアカウントが登録したイメージで六か月以上未使用のものを自動的に削除する
     - 一定時間あたりの Pull 回数に上限を設ける
 
-    など、制限が加わっています。今のところは GitHub Container Registory には同様の制限はないため、移行の検討も必要になる可能性があります。例えば、Docker Hub 上の `p4app` も、ある日突然消えるかもしれません。
-
-!!! note "プライベートリポジトリ"
-    Docker Hub でも、プライベートリポジトリを作成でき、それを利用すれば自分が許可したひとしか利用できないコンテナイメージも作成できます。この場合、コンテナイメージは秘匿される一方で、Pull するためにも認証が必要になるため、例えば Kubernetes 上で利用したい場合などに追加の認証情報の構成が必要になります。
+    一方で、GitHub Container Registory（正確には GitHub Packages）には、パブリックリポジトリであれば現時点では制限はありません（プライベートリポジトリには容量や転送量に制限があります）。
 
 ## 様々なカスタマイズ方法（参考）
 
@@ -255,7 +257,7 @@ Dockerfile のベースイメージには、任意のコンテナイメージを
 場合は、例えば **`p4app` 自体をベースイメージにしてしまい、そこからの差分だけ記述する** と、同じ目的を達成できます。これはつまり、手元に `app.py` と `bg.jpg` だけあれば、Dockerfile が以下だけでも目的の状態のイメージをビルドできるということです。
 
 ```docker
-FROM kurokobo/p4app:0.0.1
+FROM ghcr.io/piperjapan/p4app:0.0.1
 
 ADD app.py /app
 ADD bg.jpg /app/static/img

@@ -2,7 +2,7 @@
 
 このラボでは、実際に Docker Compose を使ってみます。
 
-[![image](https://user-images.githubusercontent.com/2920259/99257462-687b2280-285a-11eb-8571-e7c7f12676df.png)](https://user-images.githubusercontent.com/2920259/99257462-687b2280-285a-11eb-8571-e7c7f12676df.png)
+[![image](https://user-images.githubusercontent.com/2920259/123530719-9d2c5200-d738-11eb-8c5b-2b1b76bf1960.png)](https://user-images.githubusercontent.com/2920259/123530719-9d2c5200-d738-11eb-8c5b-2b1b76bf1960.png)
 
 事前に用意したサンプルの構成ファイル（①）を元にデプロイ（②）し、アクセスを確認（③）します。
 
@@ -11,7 +11,7 @@
 このラボでは、`lab-compose-deploy` ディレクトリを利用します。
 
 ```bash
-cd ~/codes/Module10/lab-compose-deploy
+cd ~/lab-docker-k8s/lab-compose-deploy
 ```
 
 ## Compose ファイル
@@ -34,7 +34,7 @@ volumes:
 
 services:
   p4app:
-    image: kurokobo/p4app:0.0.1
+    image: ghcr.io/piperjapan/p4app:0.0.1
     ports:
       - 80:8080
     environment:
@@ -65,7 +65,7 @@ services:
 
 ### Docker Compose のインストール
 
-Docker-Compose は、通常は公開されているバイナリをダウンロードして配置するだけで使えますが、今回ラボで使っている Docker Host は、Container Optimized OS で、ハードニングされているため、バイナリの実行に制限があります。このため、インストール方法が少々特殊ですが、ラボの本質ではないのでスクリプトを用意しています。
+Docker Compose は、通常は公開されているバイナリをダウンロードして配置するだけで使えますが、今回ラボで使っている Docker Host は、Container Optimized OS で、ハードニングされているため、バイナリの実行に制限があります。このため、インストール方法が少々特殊ですが、ラボの本質ではないのでスクリプトを用意しています。
 
 次のコマンドを実行します。
 
@@ -116,7 +116,7 @@ docker-compose up -d
 
 `docker` コマンドとよく似ていて、`-d` はデタッチドモードを意味します。
 
-[![image](https://user-images.githubusercontent.com/2920259/99257462-687b2280-285a-11eb-8571-e7c7f12676df.png)](https://user-images.githubusercontent.com/2920259/99257462-687b2280-285a-11eb-8571-e7c7f12676df.png)
+[![image](https://user-images.githubusercontent.com/2920259/123530719-9d2c5200-d738-11eb-8c5b-2b1b76bf1960.png)](https://user-images.githubusercontent.com/2920259/123530719-9d2c5200-d738-11eb-8c5b-2b1b76bf1960.png)
 
 `docker-compose` コマンドは、コマンドを実行したディレクトリの `docker-compose.yml` を探して利用します（異なるファイル名や別のディレクトリのファイルを使いたい場合は `-f` で指定できます）。従って今回は、事前に取得した `docker-compose.yml`（①）が使われました。
 
@@ -147,7 +147,7 @@ docker-compose ps
 
 コンテナオーケストレーションの説明の中で、次のように記述しました。
 
-> 構成ファイルを指定して実行すると、**今の状態からの差分が自動で適用** され、**あるべき状態** に自動で収束する
+> 構成ファイルを指定して実行すると、**今の状態からの差分が自動で適用** され、**あるべき状態** に **自動で収束** する
 
 つまり、人間は今の状態を気にせずに `docker-compose up -d` しさえすれば、勝手に Compose ファイルに記述した状態にまでもっていってくれるということです。
 

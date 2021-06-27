@@ -7,7 +7,7 @@
 このラボでは、`lab-k8s-manifest` ディレクトリを利用します。
 
 ```bash
-cd ~/codes/Module10/lab-k8s-manifest
+cd ~/lab-docker-k8s/lab-k8s-manifest
 ```
 
 ## マニフェストを利用した移植性
@@ -22,7 +22,7 @@ Docker Compose での Compose ファイルのように、Kubernetes でもアプ
 
 Kubernetes では、`get` コマンドに `-o yaml` を与えることで、その時点の構成を YAML フォーマットで出力できます。これによって得られた YAML ファイルは、そのままマニフェストファイルとして利用可能です。
 
-[![image](https://user-images.githubusercontent.com/2920259/99185297-2e434f80-278c-11eb-9a2b-010350e3cac8.png)](https://user-images.githubusercontent.com/2920259/99185297-2e434f80-278c-11eb-9a2b-010350e3cac8.png)
+[![image](https://user-images.githubusercontent.com/2920259/123530814-b2ee4700-d739-11eb-9659-6d7642293814.png)](https://user-images.githubusercontent.com/2920259/123530814-b2ee4700-d739-11eb-9659-6d7642293814.png)
 
 ここでは、実際に現在のリソースの情報をマニフェストとして出力（①）し、環境を削除後、マニフェストによるデプロイ（②）を実勢します。
 
@@ -74,7 +74,7 @@ kubectl get all
 しばらく待って `get all` の結果が Service だけになったら、Deployment の削除は完了です。YAML ファイルを基にした構築が行える準備が整いました。
 
 !!! note "存在するはずのないリソース"
-    ここでも、やはり **あるべき状態** の定義が変更されています。つまり、Deployment や ReplicaSet、Pod が **ない状態が正しい** と定義が変更されたため、それに一致させるように削除処理が動いたことになります。
+    ここでも、やはり **あるべき状態** の定義が変更されています。つまり、Deployment や ReplicaSet、Pod が **ない状態が正しい** と定義が変更されたため、それに一致させるように削除処理が動いたということです。
 
 次のコマンドで、YAML ファイルを基にリソースを作成できます。
 
@@ -91,7 +91,7 @@ kubectl get all
 
 実際には、この全行が必須なわけではなく、不要な行は削除しても動作します。また、先の例では Deployment だけのマニフェストにしましたが、ひとつのマニフェストファイルに任意のリソースを列挙できるため、Service も含められます。
 
-[![image](https://user-images.githubusercontent.com/2920259/99185301-37ccb780-278c-11eb-8433-918313ed0724.png)](https://user-images.githubusercontent.com/2920259/99185301-37ccb780-278c-11eb-8433-918313ed0724.png)
+[![image](https://user-images.githubusercontent.com/2920259/123530824-cc8f8e80-d739-11eb-8928-1ab6552ab591.png)](https://user-images.githubusercontent.com/2920259/123530824-cc8f8e80-d739-11eb-8928-1ab6552ab591.png)
 
 ここでは、GitHub にあらかじめ配置しておいたサンプルのマニフェスト（①）を使って、マニフェストの中身の確認と再デプロイ（②）を実践します。
 
@@ -124,7 +124,7 @@ items:
       spec:
         containers:
         - name: p4app
-          image: kurokobo/p4app:0.0.1
+          image: ghcr.io/piperjapan/p4app:0.0.1
           ports:
           - containerPort: 8080
             protocol: TCP
@@ -225,6 +225,6 @@ kubectl get all
 
 マニフェストの作成方法を理解し、実際にマニフェストを使ったリソースのデプロイを実践しました。
 
-[![image](https://user-images.githubusercontent.com/2920259/99185301-37ccb780-278c-11eb-8433-918313ed0724.png)](https://user-images.githubusercontent.com/2920259/99185301-37ccb780-278c-11eb-8433-918313ed0724.png)
+[![image](https://user-images.githubusercontent.com/2920259/123530824-cc8f8e80-d739-11eb-8928-1ab6552ab591.png)](https://user-images.githubusercontent.com/2920259/123530824-cc8f8e80-d739-11eb-8928-1ab6552ab591.png)
 
 YAML ファイルはただのテキストファイルなので、Git リポジトリなどでのバージョン管理も容易です。あらかじめマニフェストファイルを作ってしまえば、Kubernetes クラスタへのデプロイを CI/CD や GitOps の概念と組み合わせて自動化も可能です。

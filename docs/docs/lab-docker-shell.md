@@ -15,7 +15,7 @@
 まずは `p4app` を起動させます。
 
 ```bash
-docker run -d --name p4app -p 80:8080 kurokobo/p4app:0.0.1
+docker run -d --name p4app -p 80:8080 ghcr.io/piperjapan/p4app:0.0.1
 docker ps -a
 ```
 
@@ -99,12 +99,12 @@ docker ps -a
 
 ## コマンドの実行（参考）
 
-実際には、シェルに限らずコンテナ内の任意のコマンドを実行できます（というより、任意のコマンドを実行させる方法を使ってシェルを起動させてている、という表現の方が正確です）。
+実際には、シェルに限らずコンテナ内の任意のコマンドを実行できます（というより、任意のコマンドを実行させる方法を使ってシェルを起動させている、という表現の方が正確です）。
 
 起動済みのコンテナに対して実行すれば、ファイルの存在や環境変数を確認するために非常に便利です。データベースのコンテナにワンライナでクエリを渡す目的などでも利用できます。
 
 ```bash
-docker run -d --name p4app -e SAMPLE_VALUE=hoge -p 80:8080 kurokobo/p4app:0.0.1
+docker run -d --name p4app -e SAMPLE_VALUE=hoge -p 80:8080 ghcr.io/piperjapan/p4app:0.0.1
 docker exec p4app ls -l
 docker exec p4app env
 docker rm -f p4app

@@ -21,7 +21,7 @@
 細かいことはさておき、とにかく動かしてみましょう。仮想マシンのターミナルで、次のコマンドを実行します。
 
 ```bash
-docker run -p 80:8080 kurokobo/p4app:0.0.1
+docker run -p 80:8080 ghcr.io/piperjapan/p4app:0.0.1
 ```
 
 [![image](https://user-images.githubusercontent.com/2920259/98806878-2f5b4080-245d-11eb-9cfa-4a8e9b396a2d.png)](https://user-images.githubusercontent.com/2920259/98806878-2f5b4080-245d-11eb-9cfa-4a8e9b396a2d.png)
@@ -51,43 +51,55 @@ docker run -p 80:8080 kurokobo/p4app:0.0.1
 
 最初に、GCP 上に Docker の母艦となる仮想マシンを作成しました。
 
-[![image](https://user-images.githubusercontent.com/2920259/99185186-92b1df00-278b-11eb-851a-7fb551df69dc.png)](https://user-images.githubusercontent.com/2920259/99185186-92b1df00-278b-11eb-851a-7fb551df69dc.png)
+[![image](https://user-images.githubusercontent.com/2920259/123530599-4114fe00-d737-11eb-8449-5422bacb7805.png)](https://user-images.githubusercontent.com/2920259/123530599-4114fe00-d737-11eb-8449-5422bacb7805.png)
 
 続けて、`docker run` コマンドを実行し、あとはブラウザからアクセスしただけです。
 
 これを少しだけ細かく図示すると、次のようになります。
 
-[![image](https://user-images.githubusercontent.com/2920259/99185194-a52c1880-278b-11eb-95e0-8c1f6b3c2a1a.png)](https://user-images.githubusercontent.com/2920259/99185194-a52c1880-278b-11eb-95e0-8c1f6b3c2a1a.png)
+[![image](https://user-images.githubusercontent.com/2920259/123530613-699cf800-d737-11eb-8d7d-2f0c207b2c5b.png)](https://user-images.githubusercontent.com/2920259/123530613-699cf800-d737-11eb-8d7d-2f0c207b2c5b.png)
 
-実行したコマンド `docker run -p 80:8080 kurokobo/p4app:0.0.1` を紐解くと、実は、次のような意味でした。
+実行したコマンド `docker run -p 80:8080 ghcr.io/piperjapan/p4app:0.0.1` を紐解くと、実は、次のような意味でした。
 
-- コンテナイメージ `kurokobo/p4app:0.0.1` を起動する（`docker run kurokobo/p4app:0.0.1`）
+- コンテナイメージ `ghcr.io/piperjapan/p4app:0.0.1` を起動する（`docker run ghcr.io/piperjapan/p4app:0.0.1`）
 - 起動時には、コンテナの `8080` 番ポートをコンテナホストの `80` 番ポートとして公開する（`-p 80:8080`）
 
 この段階では、いくつかの用語を抑えておくとよいでしょう。技術的な詳細は、ラボを進めるともう少しイメージできるようになるはずです。
 
 #### コンテナレジストリ
 
-Docker は、コンテナイメージが指定され、それが未知のモノだった場合、インタネットで公開されている **コンテナレジストリ** を勝手に検索し、合致するものをダウンロードしてくれます。デフォルトでは、検索先は [Docker Hub](https://hub.docker.com/) です。
+Docker は、指定されたコンテナイメージが未知のモノだった（ローカルに存在しない）場合は、インタネット上の **コンテナレジストリ** から合致するものをダウンロードして利用します。
 
-今回は、`kurokobo/p4app:0.0.1` を指定しました。今回が初回実行であり、未知のイメージのため、Docker Hub でリポジトリ `kurokobo` の `p4app` イメージが検索され、その中で `0.0.1` のタグがつけられたものが自動でダウンロードされたわけです（図中 ①）。なお、二回目以降の実行時には、初回実行時にローカルにダウンロードされたイメージが再利用されます。
+今回は、コンテナイメージとして `ghcr.io/piperjapan/p4app:0.0.1` を指定しました。これは、次のように解釈されます。
+
+- レジストリホスト名： `ghcr.io`
+- リポジトリ名： `piperjapan`
+- イメージ名： `p4app`
+- タグ： `0.0.1`
+
+`ghcr.io` は、GitHub がホストしているコンテナレジストリである GitHub Container Registory のレジストリホスト名です。すなわち今回は、GitHub Container Registory 上の `piperjapan` リポジトリの `p4app` イメージのうち、`0.0.1` とタグ付けされたモノを使うように指示していました。指定したコンテナイメージは初回利用時にローカルにダウンロード（図中 ①）され、二回目以降の実行時にはダウンロード済みのイメージが再利用されます。
 
 なお、コンテナイメージのダウンロードは正確には **プル** といい、起動させずにダウンロードだけ行う `docker pull` コマンドも用意されています。
+
+!!! note "Docker Hub"
+    Docker は、コンテナレジストリとしてデフォルトで Docker の公式サービスである [Docker Hub](https://hub.docker.com/)（`docker.io`）を参照するように構成されているため、Docker Hub 上のコンテナイメージを利用する場合は、通常はレジストリホスト名は省略します。リポジトリ名も省略可能で、その場合は Docker Hub 上の Docker の公式イメージが参照されます。
 
 #### コンテナイメージ
 
 ダウンロードしたコンテナイメージには、ツールそのものだけでなく、ツールの実行に必要な周辺環境（ランタイム、ライブラリ、モジュールなど）が丸ごと含まれています。また、そのイメージが実際にコンテナとして起動された際の起動方法などのメタデータも含まれています。
 
 !!! warning "コンテナイメージのタグ指定"
-    この例では、`kurokobo` の `p4app` イメージの `0.0.1` タグを利用しました。タグの指定は必須ではなく、省略した場合は `latest` タグが検索されますが、今日では `latest` タグの利用は推奨されません。
+    コンテナイメージにおける **タグ** は、現実的にはいわゆる **バージョン** と近しい意味合いで使われます。今回は、`p4app` イメージの `0.0.1` タグを利用しました。
 
-    `latest` タグは通常は **その時点の最新** がポイントしますが、これはつまり、**実行時点によってプルされるイメージが変わる可能性がある** ことを意味します。同じタグであればいつでも同じイメージがプルできる状態が望ましいことから、利用者側もコンテナイメージの作成者側もなるべく `latest` は使わず、バージョンを明示することを心がけましょう。
+    なお、タグの指定は必須ではなく、省略した場合は `latest` タグが検索されますが、今日では `latest` タグの利用は推奨されません。
+
+    `latest` タグは通常は **その時点の最新** をポイントしますが、これはつまり、**実行時点によってプルされるイメージが変わる可能性がある** ことを意味します。同じタグであればいつでも同じ（少なくとも動作に互換性がある）イメージがプルできる状態が望ましいことから、利用者側もコンテナイメージの作成者側もなるべく `latest` は使わず、タグを明示することを心がけましょう。
 
 #### コンテナ
 
 コンテナイメージを実際に起動させたモノが、コンテナです。
 
-今回は、ダウンロードしたコンテナイメージ `kurokobo/p4app:0.0.1` が、そのコンテナイメージにあらかじめ設定された起動方法（所定の Python スクリプトの実行）に従って起動されました（図中 ②）。このコンテナはデフォルトでは `8080` 番ポートで待ち受けますが、Docker ホスト内からしかアクセスできないので、コマンドの `-p` オプションで、明示的に Docker ホストの `80` 番ポートとして公開を指示していました。
+今回は、ダウンロードしたコンテナイメージ `ghcr.io/piperjapan/p4app:0.0.1` が、そのコンテナイメージにあらかじめ設定された起動方法（所定の Python スクリプトの実行）に従って起動されました（図中 ②）。このコンテナはデフォルトでは `8080` 番ポートで待ち受けますが、Docker ホスト内からしかアクセスできないので、コマンドの `-p` オプションで、明示的に Docker ホストの `80` 番ポートとして公開を指示していました。
 
 ### 停止と削除
 
@@ -109,8 +121,8 @@ CONTAINER ID        IMAGE               COMMAND             CREATED             
 
 ```bash
 $ docker ps -a
-CONTAINER ID        IMAGE                  COMMAND             CREATED             STATUS                     PORTS               NAMES
-a908d558fa48        kurokobo/p4app:0.0.1   "python app.py"     About an hour ago   Exited (0) 5 minutes ago                       reverent_kepler
+CONTAINER ID        IMAGE                            COMMAND             CREATED             STATUS                     PORTS               NAMES
+a908d558fa48        ghcr.io/piperjapan/p4app:0.0.1   "python app.py"     About an hour ago   Exited (0) 5 minutes ago                       reverent_kepler
 ```
 
 停止中のコンテナは、`docker rm` コマンドで削除できます。引数で、コンテナ ID（`CONTAINER ID` 列）かコンテナ名（`NAME` 列）のどちらかを指定します。
@@ -132,12 +144,12 @@ CONTAINER ID        IMAGE               COMMAND             CREATED             
 実際に、デタッチドモードで起動させ、`docker ps` で起動していることを確認します。
 
 ```bash
-$ docker run -d -p 80:8080 kurokobo/p4app:0.0.1
+$ docker run -d -p 80:8080 ghcr.io/piperjapan/p4app:0.0.1
 6979de0938a5178ae2930e1baf7d6e702e950cc634624bae683be9d80c89b319
 
 $ docker ps
-CONTAINER ID        IMAGE                  COMMAND             CREATED             STATUS              PORTS                  NAMES
-6979de0938a5        kurokobo/p4app:0.0.1   "python app.py"     3 seconds ago       Up 2 seconds        0.0.0.0:80->8080/tcp   epic_darwin
+CONTAINER ID        IMAGE                            COMMAND             CREATED             STATUS              PORTS                  NAMES
+6979de0938a5        ghcr.io/piperjapan/p4app:0.0.1   "python app.py"     3 seconds ago       Up 2 seconds        0.0.0.0:80->8080/tcp   epic_darwin
 ```
 
 起動したコンテナは、`docker stop` で停止できます。削除時と同様に、引数でコンテナ ID かコンテナ名を指定します。
@@ -147,20 +159,20 @@ $ docker stop epic_darwin
 epic_darwin
 
 $ docker ps -a
-CONTAINER ID        IMAGE                  COMMAND             CREATED             STATUS                       PORTS               NAMES
-6979de0938a5        kurokobo/p4app:0.0.1   "python app.py"     7 minutes ago       Exited (137) 4 seconds ago                       epic_darwin
+CONTAINER ID        IMAGE                            COMMAND             CREATED             STATUS                       PORTS               NAMES
+6979de0938a5        ghcr.io/piperjapan/p4app:0.0.1   "python app.py"     7 minutes ago       Exited (137) 4 seconds ago                       epic_darwin
 ```
 
 さて、ここで、停止したコンテナを **削除しない** 状態で、再び `docker run` して、`docker ps -a` してみます。
 
 ```bash
-$ docker run -d -p 80:8080 kurokobo/p4app:0.0.1
+$ docker run -d -p 80:8080 ghcr.io/piperjapan/p4app:0.0.1
 77ed4288697f7122d8e94df555ec78c681a5fee5364b757b11802497865adcae
 
 $ docker ps -a
-CONTAINER ID        IMAGE                  COMMAND             CREATED             STATUS                       PORTS                  NAMES
-77ed4288697f        kurokobo/p4app:0.0.1   "python app.py"     4 seconds ago       Up 2 seconds                 0.0.0.0:80->8080/tcp   gallant_ptolemy
-6979de0938a5        kurokobo/p4app:0.0.1   "python app.py"     9 minutes ago       Exited (137) 2 minutes ago                          epic_darwin
+CONTAINER ID        IMAGE                            COMMAND             CREATED             STATUS                       PORTS                  NAMES
+77ed4288697f        ghcr.io/piperjapan/p4app:0.0.1   "python app.py"     4 seconds ago       Up 2 seconds                 0.0.0.0:80->8080/tcp   gallant_ptolemy
+6979de0938a5        ghcr.io/piperjapan/p4app:0.0.1   "python app.py"     9 minutes ago       Exited (137) 2 minutes ago                          epic_darwin
 ```
 
 この結果から、`docker run` で起動させると、**常に新しいコンテナが新規に作成される** ことがわかります。削除をしないとコンテナが残り続けるだけでなく、**起動のたびに増えていく** ことになるので、掃除が必要です。
@@ -179,12 +191,12 @@ CONTAINER ID        IMAGE               COMMAND             CREATED             
 また、`docker run` にオプション `--rm` を追加すると、**そのコンテナの停止時に自動で削除される** ようになります。
 
 ```bash
-$ docker run --rm -d -p 80:8080 kurokobo/p4app:0.0.1
+$ docker run --rm -d -p 80:8080 ghcr.io/piperjapan/p4app:0.0.1
 38108887b580658641c6dd44a0091ce507ea1751af9725eb8cdf30ee839564b4
 
 $ docker ps -a
-CONTAINER ID        IMAGE                  COMMAND             CREATED             STATUS              PORTS                  NAMES
-38108887b580        kurokobo/p4app:0.0.1   "python app.py"     6 seconds ago       Up 5 seconds        0.0.0.0:80->8080/tcp   naughty_mayer
+CONTAINER ID        IMAGE                            COMMAND             CREATED             STATUS              PORTS                  NAMES
+38108887b580        ghcr.io/piperjapan/p4app:0.0.1   "python app.py"     6 seconds ago       Up 5 seconds        0.0.0.0:80->8080/tcp   naughty_mayer
 
 $ docker stop 38108887b580
 38108887b580

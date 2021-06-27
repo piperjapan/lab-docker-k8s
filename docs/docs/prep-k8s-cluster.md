@@ -81,4 +81,4 @@ kubectl cluster-info
 
 以降、特に断りのない限り、操作はこの Google Cloud Shell で行います。
 
-[![image](https://user-images.githubusercontent.com/2920259/99185260-f63c0c80-278b-11eb-9615-7cef5f2c8e55.png)](https://user-images.githubusercontent.com/2920259/99185260-f63c0c80-278b-11eb-9615-7cef5f2c8e55.png)
+[![image](https://user-images.githubusercontent.com/2920259/123530794-5ee36280-d739-11eb-9fcc-39c904cb116b.png)](https://user-images.githubusercontent.com/2920259/123530794-5ee36280-d739-11eb-9fcc-39c904cb116b.png)
