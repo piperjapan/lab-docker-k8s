@@ -55,7 +55,7 @@ docker rm -f p4app
 次のコマンドでは、CentOS のコンテナイメージを起動させ、シェルの起動のみをさせています。また、`--rm` を加えることで、終了したら自動でコンテナが削除されるようにもしています。
 
 ```bash
-docker run --rm -it centos:8 bash
+docker run --rm -it ubuntu:latest bash
 ```
 
 プロンプトが `[root@9a10bb40b2fa /]#` などの文字列に変化していれば、コンテナイメージ `centos:8` の中のシェルにアクセスできています。いくつかのコマンドを試してみましょう。
@@ -63,7 +63,8 @@ docker run --rm -it centos:8 bash
 ```bash
 ps -a
 cat /etc/os-release
-dnf install -y python38
+apt update
+apt install python3
 python3 -c 'print("hello world")'
 ```
 
