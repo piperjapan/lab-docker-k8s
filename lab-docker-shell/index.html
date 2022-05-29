@@ -801,7 +801,6 @@ cat /etc/os-release
 </code></pre></div>
 <p>プロンプトが <code>[root@9a10bb40b2fa /]#</code> などの文字列に変化していれば、コンテナイメージ <code>centos:8</code> の中のシェルにアクセスできています。いくつかのコマンドを試してみましょう。</p>
 <div class="highlight"><pre><span></span><code>cat /etc/os-release
-apt update
 dnf install -y python38
 python3 -c <span class="s1">&#39;print(&quot;hello world&quot;)&#39;</span>
 </code></pre></div>
