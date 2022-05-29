@@ -26,7 +26,7 @@ docker run -p 80:8080 ghcr.io/piperjapan/p4app:0.0.1
 
 [![image](https://user-images.githubusercontent.com/2920259/98806878-2f5b4080-245d-11eb-9cfa-4a8e9b396a2d.png)](https://user-images.githubusercontent.com/2920259/98806878-2f5b4080-245d-11eb-9cfa-4a8e9b396a2d.png)
 
-コマンドの実行後、なにやら処理が行われ、`[ Running on http://0.0.0.0:8080/ (Press CTRL+C to quit) ]` の表示を確認したら、GCP の管理コンソールに戻って、操作している仮想マシンの `[ 外部 IP ]` をクリックします。これは、HTTP でその IP アドレスにアクセスできるリンクです。
+コマンドの実行後、なにやら処理が行われ、`[ Running on http://x.x.x.x:8080/ (Press CTRL+C to quit) ]` の表示を確認したら、GCP の管理コンソールに戻って、操作している仮想マシンの `[ 外部 IP ]` をクリックします。これは、HTTP でその IP アドレスにアクセスできるリンクです。
 
 [![image](https://user-images.githubusercontent.com/2920259/98807136-8f51e700-245d-11eb-92ce-ab92327a75a9.png)](https://user-images.githubusercontent.com/2920259/98807136-8f51e700-245d-11eb-92ce-ab92327a75a9.png)
 
