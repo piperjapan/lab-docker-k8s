@@ -62,7 +62,6 @@ docker run --rm -it quay.io/centos/centos:stream8 bash
 
 ```bash
 cat /etc/os-release
-apt update
 dnf install -y python38
 python3 -c 'print("hello world")'
 ```
